@@ -5,16 +5,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocketIoConfig, SocketIoModule } from 'ng-socket-io';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { ChatComponent } from './chat/chat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PlayComponent } from './play/play.component';
+import { ChatService } from './service/chat.service';
 import { PlayService } from './service/play.service';
 import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
-import { ChatComponent } from './chat/chat.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
+const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
     SocketIoModule.forRoot(config)
   ],
   entryComponents: [],
-  providers: [StatsService, UserService, PlayService],
+  providers: [StatsService, UserService, PlayService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

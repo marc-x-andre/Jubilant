@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
-import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ChatMessage } from '../model/chat_entry';
 
 @Injectable()
 export class ChatService {
 
-    constructor(private socket: Socket) { }
+    private chat_msg: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]);
 
-    sendMessage(msg: string) {
-        this.socket.emit('message', msg);
+    constructor(private socket: Socket) {
+
+        this.socket.fromEvent<any>('message').subscribe(msg => {
+            this.chat_msg.getValue().push(JSON.parse(msg));
+            this.chat_msg.next(this.chat_msg.getValue());
+        });
+
     }
 
-    getMessage() {
-        return this.socket.fromEvent<any>('message').map(data => data.msg);
+    sendMessage(msg: string) {
+        this.socket.emit('message', JSON.stringify({ username: 'TEST', message: msg }));
+    }
+
+    getMessageObservable() {
+        return this.chat_msg.asObservable();
     }
 
     close() {

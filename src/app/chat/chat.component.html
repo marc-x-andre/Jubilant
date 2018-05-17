@@ -3,11 +3,8 @@
   <div class="chat_header"></div>
 
   <ul class="chat_box">
-    <li>
-      <span>Marc</span>- Omg c'est juste wow
-    </li>
-    <li>
-      <span>Christian</span>- NOOOOOOOOOOOOOOOOOOOOOOON
+    <li *ngFor="let msg of msg_list">
+      <span>{{msg.username}}</span>- {{msg.message}}
     </li>
   </ul>
 
