@@ -16,14 +16,17 @@ export class UserService {
 
 
   public fetchCurrentUser() {
-    this.http.get('http://localhost/api/user').subscribe(data => {
-      console.log(data);
+    this.http.get('http://10.10.78.239/api/user').subscribe(data => {
+      if (data) {
+        this.user = data['USER'];
+        console.log('User is already logged in: ', this.user.username);
+      }
     });
   }
 
 
   public login(username: string, password: string) {
-    return this.http.post('http://localhost/api/login', null, {params: {username: username, password: password}}).subscribe(data => {
+    return this.http.post('http://10.10.78.239/api/login', null, {params: {username: username, password: password}}).subscribe(data => {
       this.user = data['USER'];
       console.log(this.user);
     }, error => {
