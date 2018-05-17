@@ -16,7 +16,7 @@ export class UserService {
 
 
   public fetchCurrentUser() {
-    this.http.get('http://10.10.78.239/api/user').subscribe(data => {
+    this.http.get('http://10.140.23.43/api/user').subscribe(data => {
       if (data) {
         this.user = data['USER'];
         console.log('User is already logged in: ', this.user.username);
@@ -26,11 +26,11 @@ export class UserService {
 
 
   public login(username: string, password: string) {
-    return this.http.post('http://10.10.78.239/api/login', null, {params: {username: username, password: password}}).subscribe(data => {
+    return this.http.post('http://10.140.23.43/api/login', null, {params: {username: username, password: password}}).subscribe(data => {
       this.user = data['USER'];
       console.log(this.user);
     }, error => {
-      console.log('WTF DO YOU WANT', error['error']);
+      console.log('what DO YOU WANT', error['error']);
       alert('whoopsie doopsie');
     });
   }
