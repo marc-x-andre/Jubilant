@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/take';
-import { GAME_STATE, PlayService } from '../service/play.service';
+import { AppStore, GAME_STATE } from '../app.store';
+import { PlayService } from '../service/play.service';
 
 @Component({
   selector: 'app-play',
@@ -18,9 +19,9 @@ export class PlayComponent implements OnInit {
   constructor(private playService: PlayService) { }
 
   ngOnInit() {
-    this.playService.game_string.subscribe(game_string => this.game_string = game_string);
-    this.playService.user_string.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
-    PlayService.STATE.subscribe(state => {
+    AppStore.game_string.subscribe(game_string => this.game_string = game_string);
+    AppStore.user_string.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
+    AppStore.STATE.subscribe(state => {
       this.state = state;
       if (this.state === GAME_STATE.FINISH) {
         this.textarea.nativeElement.disabled = true;
