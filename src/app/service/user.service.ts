@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
-import {UserStats} from '../model/user_stats';
+import {User} from '../model/User';
 import {HttpClient} from '@angular/common/http';
+
 
 @Injectable()
 export class UserService {
 
-  private _user_info: UserStats;
+  public user: User;
 
   constructor(private http: HttpClient) {
     this.fetchCurrentUser();
+
     this.login('user', 'user');
   }
 
@@ -21,20 +23,13 @@ export class UserService {
 
 
   public login(username: string, password: string) {
-    this.http.post('http://localhost/api/login', null,
-      {params: {username: username, password: password}}).subscribe(data => {
-      console.log(data);
+    return this.http.post('http://localhost/api/login', null, {params: {username: username, password: password}}).subscribe(data => {
+      this.user = data['USER'];
+      console.log(this.user);
+    }, error => {
+      console.log('WTF DO YOU WANT', error['error']);
+      alert('whoopsie doopsie');
     });
-  }
-
-
-  get user_info(): UserStats {
-    return this._user_info;
-  }
-
-
-  set user_info(user_info: UserStats) {
-    this._user_info = user_info;
   }
 
 }
