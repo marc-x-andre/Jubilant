@@ -1,36 +1,40 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { UserStats } from '../model/user_stats';
-import { CookieUtils } from '../util/cookie.util';
+import {Injectable} from '@angular/core';
+import {UserStats} from '../model/user_stats';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class UserService {
 
-    private _user_info: UserStats;
+  private _user_info: UserStats;
 
-    constructor(public dialog: MatDialog) {
-        const user_string = CookieUtils.get('user_info');
-        if (user_string === '2') {
-            this._user_info = JSON.parse(user_string);
-        } else {
-        }
+  constructor(private http: HttpClient) {
+    this.fetchCurrentUser();
+    this.login('user', 'user');
+  }
 
-        window.onbeforeunload = () => {
-            this.saveUserInfo();
-        };
-    }
 
-    get user_info(): UserStats {
-        return this._user_info;
-    }
+  public fetchCurrentUser() {
+    this.http.get('http://localhost/api/user').subscribe(data => {
+      console.log(data);
+    });
+  }
 
-    set user_info(user_info: UserStats) {
-        this._user_info = user_info;
-        this.saveUserInfo();
-    }
 
-    private saveUserInfo() {
-        CookieUtils.set('user_info', JSON.stringify(this._user_info));
-    }
+  public login(username: string, password: string) {
+    this.http.post('http://localhost/api/login', null,
+      {params: {username: username, password: password}}).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+
+  get user_info(): UserStats {
+    return this._user_info;
+  }
+
+
+  set user_info(user_info: UserStats) {
+    this._user_info = user_info;
+  }
 
 }
