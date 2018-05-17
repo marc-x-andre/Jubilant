@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppStore } from './app.store';
 import { UserService } from './service/user.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { UserService } from './service/user.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private appStore: AppStore) {
 
   }
 }

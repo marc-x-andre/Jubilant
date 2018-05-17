@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocketIoConfig, SocketIoModule } from 'ng-socket-io';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { AppStore } from './app.store';
 import { ChatComponent } from './chat/chat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -42,7 +43,7 @@ const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
     FormsModule
   ],
   entryComponents: [],
-  providers: [StatsService, UserService, PlayService, ChatService],
+  providers: [StatsService, UserService, PlayService, ChatService, AppStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
