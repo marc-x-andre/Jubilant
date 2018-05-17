@@ -13,6 +13,7 @@ import { PlayService } from './service/play.service';
 import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
 import { ChatComponent } from './chat/chat.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
 
@@ -32,7 +33,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
     MatListModule,
     MatDialogModule,
     AppRoutingModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    HttpClientModule
   ],
   entryComponents: [],
   providers: [StatsService, UserService, PlayService],
