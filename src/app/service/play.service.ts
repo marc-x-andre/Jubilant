@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Socket } from 'ng-socket-io';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const COOLDOWN = 60;
 const GAME_LENGHT = 300;
@@ -22,7 +23,9 @@ export class PlayService {
     private next_game_string;
     private game_life_time;
 
-    constructor() {
+    constructor(private socket: Socket) {
+
+
     }
 
     hackerDetect() {

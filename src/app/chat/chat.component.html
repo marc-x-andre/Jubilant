@@ -1,6 +1,6 @@
-<div class="chat-container" [ngClass]="{'hide': is_hide}" (click)="is_hide = !is_hide">
+<div class="chat-container" [ngClass]="{'hide': is_hide}">
 
-  <div class="chat_header">
+  <div class="chat_header" (click)="is_hide = !is_hide">
     <p>in·tro·spec·tion
       <span>#ChatBox</span>
     </p>
@@ -12,7 +12,7 @@
     </li>
   </ul>
 
-  <div class="chat_input">
+  <div class="chat_input" [ngClass]="{'collapse': is_hide}">
     <input placeholder="Aa" type="text" #msg (keyup.enter)="onEnter(msg.value); msg.value = ''" [ngClass]="{'collapse': is_hide}">
   </div>
 
