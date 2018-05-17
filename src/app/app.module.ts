@@ -15,6 +15,7 @@ import { ChatService } from './service/chat.service';
 import { PlayService } from './service/play.service';
 import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
+import { LoginComponent } from './login/login.component';
 
 const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
 
@@ -26,6 +27,7 @@ const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
     HomeComponent,
     PlayComponent,
     ChatComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
