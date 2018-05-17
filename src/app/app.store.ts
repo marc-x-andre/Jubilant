@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Socket } from 'ng-socket-io';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -28,7 +29,8 @@ export class AppStore {
     public static isGameObservable: Observable<boolean> = AppStore.is_game.asObservable();
     public static timerGameObservable: Observable<number> = AppStore.timer_game.asObservable();
 
-    constructor() {
+
+    constructor(private socket: Socket) {
 
         setInterval(() => {
             const game_time = AppStore.timer_game.getValue();

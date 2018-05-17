@@ -10,4 +10,12 @@
 
   </div>
 
+
+  <div class="progress mt-4">
+    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" *ngIf="progress >= 100">100%</div>
+
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': progress + '%'}"
+      *ngIf="progress < 100">{{progress}}%</div>
+  </div>
+
 </div>

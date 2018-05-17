@@ -15,10 +15,13 @@ export class PlayComponent implements OnInit {
   private game_string;
   private control_entry;
   private state;
+  private progress = 12;
 
   constructor(private playService: PlayService) { }
 
   ngOnInit() {
+    AppStore.user_progress.subscribe(progress => this.progress = progress);
+
     AppStore.game_string.subscribe(game_string => this.game_string = game_string);
     AppStore.user_string.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
     AppStore.STATE.subscribe(state => {

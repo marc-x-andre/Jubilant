@@ -21,8 +21,8 @@ io.on('connection', (socket) => {
         io.emit('message', message);
     });
 
-    socket.on('score', (message) => {
-        io.emit('score', message);
+    socket.on('progress', (progress) => {
+        io.emit('progress', progress);
     });
 
 });
