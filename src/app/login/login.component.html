@@ -10,14 +10,14 @@
             <div class="form">
               <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" id="username" required>
+                <input type="text" class="form-control" name="username" id="username" required [(ngModel)]="username" />
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" required>
+                <input type="password" class="form-control" name="password" id="password" required [(ngModel)]="password" />
               </div>
               <a href="http://10.140.23.43/oauth2/authorization/google" class="btn btn-secondary">Login using Google</a>
-              <button type="submit" class="btn btn-success" id="btnLogin">Login</button>
+              <button type="submit" class="btn btn-success" id="btnLogin" (click)="login()">Login</button>
             </div>
           </div>
         </div>

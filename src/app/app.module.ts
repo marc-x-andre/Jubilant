@@ -16,6 +16,7 @@ import { PlayService } from './service/play.service';
 import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
 import { LoginComponent } from './login/login.component';
+import {FormsModule} from '@angular/forms';
 
 const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
 
@@ -37,7 +38,8 @@ const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
     MatDialogModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   entryComponents: [],
   providers: [StatsService, UserService, PlayService, ChatService],
