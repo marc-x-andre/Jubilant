@@ -1,20 +1,41 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-
+import { MatCardModule, MatDialogModule, MatListModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SocketIoConfig, SocketIoModule } from 'ng-socket-io';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { PlayComponent } from './play/play.component';
+import { PlayService } from './service/play.service';
+import { StatsService } from './service/stats.service';
+import { UserService } from './service/user.service';
+import { ChatComponent } from './chat/chat.component';
 
+const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    DashboardComponent,
+    HomeComponent,
+    PlayComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatListModule,
+    MatDialogModule,
+    AppRoutingModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [],
+  entryComponents: [],
+  providers: [StatsService, UserService, PlayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

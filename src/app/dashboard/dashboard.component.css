@@ -1,0 +1,8 @@
+.name {
+    width: 30%;
+    text-overflow: ellipsis;
+}
+
+.progress {
+    width: 70%;
+}

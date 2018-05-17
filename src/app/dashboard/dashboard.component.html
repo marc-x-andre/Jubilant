@@ -1,0 +1,16 @@
+<mat-card>
+
+  kjdfxZKgcvsdfJGvnjiodfkxcv
+
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let user of usersStats">
+      <div class="name">{{user.pseudo}}</div>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 100%" *ngIf="user.progress === 100">100%</div>
+
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+          [ngStyle]="{'width': user.progress + '%'}" *ngIf="user.progress !== 100">{{user.progress}}%</div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

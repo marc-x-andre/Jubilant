@@ -1,0 +1,13 @@
+<div style="text-align: center">
+
+  <h1>Let's play !</h1>
+
+  <div class="gameboard">
+
+    <p class="text_play">{{game_string}}</p>
+
+    <textarea type="text" class="input_play" #textarea (keydown)='entryKey()' [ngClass]="{'error': state == 'error', 'finish': state == 'finish'}"></textarea>
+
+  </div>
+
+</div>
