@@ -16,6 +16,7 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="#">Admin</a>
       </li>
@@ -26,6 +27,9 @@
           <span *ngIf="isGame">New game in </span>
           <span *ngIf="!isGame">Current game end in </span>
           <span *ngIf="timer">{{timer}}</span> s</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
       </li>
     </ul>
   </div>

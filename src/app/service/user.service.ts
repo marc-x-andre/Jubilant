@@ -31,7 +31,7 @@ export class UserService {
       console.log(this.user);
     }, error => {
       console.log('what DO YOU WANT', error['error']);
-      alert('whoopsie doopsie');
+      alert(error['error']['MESSAGE']);
     });
   }
 
