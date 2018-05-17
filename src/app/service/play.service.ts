@@ -7,8 +7,14 @@ export class PlayService {
 
     private next_game_string;
     private game_life_time;
+    private is_game;
+    private timer;
 
     constructor(private socket: Socket) {
+        AppStore.timerGameObservable.switchMap(timer => {
+            this.timer = timer;
+            return AppStore.isGameObservable;
+        }).subscribe(is_game => this.is_game = is_game);
     }
 
     hackerDetect() {

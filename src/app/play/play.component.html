@@ -1,6 +1,7 @@
 <div style="text-align: center">
 
-  <h1>Let's play !</h1>
+  <h1 *ngIf="is_game">Let's play !</h1>
+  <h1 *ngIf="!is_game">Calm down ! Next game start in {{timer}}</h1>
 
   <div class="gameboard">
 
