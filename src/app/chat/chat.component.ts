@@ -12,4 +12,11 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
   }
 
+  onEnter(msg: string) {
+    console.log(msg);
+
+
+
+  }
+
 }

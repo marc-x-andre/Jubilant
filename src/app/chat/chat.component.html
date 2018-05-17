@@ -1,3 +1,18 @@
-<p>
-  chat works!
-</p>
+<div class="chat-container">
+
+  <div class="chat_header"></div>
+
+  <ul class="chat_box">
+    <li>
+      <span>Marc</span>- Omg c'est juste wow
+    </li>
+    <li>
+      <span>Christian</span>- NOOOOOOOOOOOOOOOOOOOOOOON
+    </li>
+  </ul>
+
+  <div class="chat_input">
+    <input type="text" #msg (keyup.enter)="onEnter(msg.value); msg.value = ''">
+  </div>
+
+</div>
