@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../model/User';
+import { UserModel } from '../model/user.model';
 
 
 @Injectable()
 export class UserService {
 
-  public user: User;
+  public user: UserModel;
 
   constructor(private http: HttpClient) {
     this.fetchCurrentUser();
@@ -19,7 +19,7 @@ export class UserService {
     this.http.get('http://10.140.23.43/api/user').subscribe(data => {
       if (data) {
         this.user = data['USER'];
-        console.log('User is already logged in: ', this.user.username);
+        console.log('UserModel is already logged in: ', this.user.username);
       }
     });
   }

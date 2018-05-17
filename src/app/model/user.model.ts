@@ -1,4 +1,4 @@
-export class User {
+export class UserModel {
     id: number;
     username: string;
     isAdmin: boolean;
