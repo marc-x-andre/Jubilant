@@ -22,7 +22,10 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link">New game in 37 s</a>
+        <a class="nav-link">
+          <span *ngIf="isGame">New game in </span>
+          <span *ngIf="!isGame">Current game end in </span>
+          <span *ngIf="timer">{{timer}}</span> s</a>
       </li>
     </ul>
   </div>
