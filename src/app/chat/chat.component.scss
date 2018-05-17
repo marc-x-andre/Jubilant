@@ -9,12 +9,25 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     overflow: hidden;
+    transition: all ease-in-out 0.3s;
 }
 
 .chat_header {
     height: 40px;
     width: 100%;
     background-color: #333;
+    z-index: 10;
+    display: flex;
+    align-content: center;
+    p {
+        color: #e3e3e3;
+        padding: 9px;
+        margin: 0;
+        span {
+            color: #6c757d;
+            font-size: 10px;
+        }
+    }
 }
 
 .chat_box {
@@ -35,11 +48,18 @@
     width: 100%;
     position: absolute;
     bottom: 0;
+    z-index: 7;
     input {
         height: 100%;
         width: 100%;
         border: none;
+        padding-left: 10px;
         background-color: #f6f6f6;
         border-top: 1px solid #000;
+        z-index: 7;
     }
+}
+
+.hide {
+    height: 40px;
 }

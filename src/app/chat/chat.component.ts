@@ -13,6 +13,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   private msg_list: ChatMessage[] = [];
   private msg_sub: ISubscription;
 
+  private is_hide = true;
+
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
@@ -25,7 +27,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onEnter(msg: string) {
-    console.log(msg);
     this.chatService.sendMessage(msg);
   }
 
