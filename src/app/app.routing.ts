@@ -20,6 +20,10 @@ const appRoutes: Routes = [
         component: LoginComponent,
     },
     {
+        path: 'login/:info',
+        component: LoginComponent
+    },
+    {
         path: '**',
         redirectTo: '/play'
     }

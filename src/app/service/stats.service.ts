@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { AppStore } from '../app.store';
 import { Stats } from '../model/stats.model';
+import { UserService } from './user.service';
 
 
 @Injectable()
 export class StatsService {
 
-    constructor(private socket: Socket) {
+    private user;
+
+    constructor(private socket: Socket, private userService: UserService) {
         this.socket.fromEvent<any>('progress').subscribe(data => {
             this.computeProgress(JSON.parse(data));
         });
@@ -16,10 +19,14 @@ export class StatsService {
             AppStore.is_game.next(data.is_game);
             AppStore.timer_game.next(data.game_time);
         });
+
+        this.userService.getUserObservable().subscribe(user => {
+            this.user = user;
+        });
     }
 
     sendProgress(progress: number) {
-        this.socket.emit('progress', JSON.stringify({ username: 'TEST', progress: progress }));
+        this.socket.emit('progress', JSON.stringify({ username: this.user.username, progress: progress }));
     }
 
     /*

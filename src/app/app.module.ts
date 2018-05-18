@@ -5,6 +5,7 @@ import { MatCardModule, MatDialogModule, MatListModule } from '@angular/material
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocketIoConfig, SocketIoModule } from 'ng-socket-io';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppStore } from './app.store';
@@ -38,6 +39,7 @@ const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
     MatDialogModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
+    ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule
   ],

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -7,19 +8,40 @@ import { UserService } from '../service/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  username = '';
-  password = '';
+  private username = '';
+  private password = '';
 
-  constructor(private userService: UserService) { }
+  private user;
 
-  ngOnInit() { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.userService.getUserObservable().take(1).switchMap(user => {
+      this.user = user;
+      return this.route.params;
+    }).subscribe(params => {
+      const info = params['info'];
+      if (info === 'out') {
+        this.logout();
+      } else if (this.user) {
+        this.router.navigate(['/play']);
+      }
+    });
+  }
 
   public login() {
     this.userService.login(this.username, this.password).subscribe(isLogin => {
       if (isLogin) {
-        // IIEHTGFIOV
+        this.router.navigate(['/play']);
       }
     });
+  }
+
+  public logout() {
+    this.userService.logout();
   }
 
 }
