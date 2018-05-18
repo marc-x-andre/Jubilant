@@ -11,6 +11,11 @@ export class StatsService {
         this.socket.fromEvent<any>('progress').subscribe(data => {
             this.computeProgress(JSON.parse(data));
         });
+        this.socket.fromEvent<any>('time').subscribe(data => {
+            console.log(data);
+            AppStore.is_game.next(data.is_game);
+            AppStore.timer_game.next(data.game_time);
+        });
     }
 
     sendProgress(progress: number) {

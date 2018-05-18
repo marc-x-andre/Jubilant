@@ -26,7 +26,8 @@
         <a class="nav-link">
           <span *ngIf="isGame">New game in </span>
           <span *ngIf="!isGame">Current game end in </span>
-          <span *ngIf="timer">{{timer}}</span> s</a>
+          <span *ngIf="timer">{{timer}}</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
