@@ -33,11 +33,14 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    this.userService.login(this.username, this.password).subscribe(isLogin => {
-      if (isLogin) {
-        this.router.navigate(['/play']);
-      }
-    });
+
+    this.userService.userSubject.next({ username: 'Marc', isAdmin: false, id: 12 });
+    /*
+        this.userService.login(this.username, this.password).subscribe(isLogin => {
+          if (isLogin) {
+            this.router.navigate(['/play']);
+          }
+        });*/
   }
 
   public logout() {

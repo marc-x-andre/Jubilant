@@ -18,6 +18,8 @@ export class PlayComponent implements OnInit {
   private control_entry;
   private state;
   private progress = 12;
+  private timer;
+  private isGame;
 
   constructor(private playService: PlayService, private statsService: StatsService, private toastr: ToastrService) { }
 
@@ -37,6 +39,19 @@ export class PlayComponent implements OnInit {
         }, 100);
       }
     });
+
+    AppStore.timerGameObservable.switchMap(time => {
+      this.timer = time;
+      return AppStore.isGameObservable;
+    }).subscribe(isGame => {
+      this.isGame = isGame;
+      if (isGame) {
+        this.textarea.nativeElement.disabled = true;
+      } else {
+        this.textarea.nativeElement.disabled = false;
+      }
+    });
+
   }
 
   @HostListener('document:keydown', ['$event'])

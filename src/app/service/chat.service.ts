@@ -24,7 +24,7 @@ export class ChatService {
     }
 
     sendMessage(msg: string) {
-        this.socket.emit('message', JSON.stringify({ username: /*this.user.username*/ 'sad', message: msg }));
+        this.socket.emit('message', JSON.stringify({ username: this.user.username, message: msg }));
     }
 
     getMessageObservable() {

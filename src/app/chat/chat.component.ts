@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       if (user) {
         this.is_collapse = false;
       } else {
-        this.is_collapse = false; // CHANGE
+        this.is_collapse = true;
       }
     });
   }
