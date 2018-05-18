@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule, MatDialogModule, MatListModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,15 +10,14 @@ import { AppRoutingModule } from './app.routing';
 import { AppStore } from './app.store';
 import { ChatComponent } from './chat/chat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PlayComponent } from './play/play.component';
+import { AuthGuard } from './service/auth.service';
 import { ChatService } from './service/chat.service';
 import { PlayService } from './service/play.service';
 import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
-import { LoginComponent } from './login/login.component';
-import {FormsModule} from '@angular/forms';
 
 const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
 
@@ -26,7 +26,6 @@ const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
     AppComponent,
     NavbarComponent,
     DashboardComponent,
-    HomeComponent,
     PlayComponent,
     ChatComponent,
     LoginComponent
@@ -43,7 +42,7 @@ const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
     FormsModule
   ],
   entryComponents: [],
-  providers: [StatsService, UserService, PlayService, ChatService, AppStore],
+  providers: [StatsService, UserService, PlayService, ChatService, AuthGuard, AppStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

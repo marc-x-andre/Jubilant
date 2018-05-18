@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { UserModel } from '../model/user.model';
-
 
 @Injectable()
 export class UserService {
@@ -10,13 +10,12 @@ export class UserService {
 
   constructor(private http: HttpClient) {
     this.fetchCurrentUser();
-
     this.login('user', 'user');
   }
 
 
   public fetchCurrentUser() {
-    this.http.get('http://10.140.23.43/api/user').subscribe(data => {
+    this.http.get(`${environment.api}/user`).subscribe(data => {
       if (data) {
         this.user = data['USER'];
         console.log('UserModel is already logged in: ', this.user.username);
@@ -24,14 +23,12 @@ export class UserService {
     });
   }
 
-
   public login(username: string, password: string) {
-    return this.http.post('http://10.140.23.43/api/login', null, { params: { username: username, password: password } }).subscribe(data => {
+    return this.http.post(`${environment.api}/login`, null, { params: { username: username, password: password } }).subscribe(data => {
       this.user = data['USER'];
       console.log(this.user);
     }, error => {
       console.log('what DO YOU WANT', error['error']);
-      // alert(error['error']['MESSAGE']);
     });
   }
 

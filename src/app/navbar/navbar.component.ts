@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit {
 
     AppStore.timerGameObservable.switchMap(time => {
       this.timer = time;
-      console.log(time);
       return AppStore.isGameObservable;
     }).subscribe(isGame => this.isGame = isGame);
 

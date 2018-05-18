@@ -3,9 +3,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Stats } from './model/stats.model';
 
-
-
 const MOCK_GAME = `Lorem ipsum dolor sit amet.`;
+
+const API_URL = 'http://10.10.78.239/api/';
+
+const SOCKET_URL = 'http://10.10.78.239/api/';
 
 export enum GAME_STATE {
     PROGRESS = 'progress',
@@ -30,9 +32,7 @@ export class AppStore {
 
     public static usersProgress: BehaviorSubject<Stats[]> = new BehaviorSubject<Stats[]>([]);
 
-    constructor() {
-
-    }
+    constructor() { }
 
 }
 
