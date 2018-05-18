@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Stats } from './model/stats.model';
 
-const MOCK_GAME = `Lorem ipsum dolor sit amet, cu odio probatus his. Ad per elit utinam delicatissimi. No quo regione viderer, debitis accusam dignissim usu ea. Pro ut mutat malis. Usu no nonumy ridens vituperatoribus, ea primis iudicabit posidonium quo, vix ne invenire torquatos contentiones.`;
+const MOCK_GAME = `Lorem ipsum dolor sit amet.`;
 
 const API_URL = 'http://10.10.78.239/api/';
 

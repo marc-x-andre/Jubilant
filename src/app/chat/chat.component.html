@@ -1,8 +1,8 @@
 <div class="chat-container" [ngClass]="{'hide': is_hide, 'collapse': is_collapse}">
 
-  <div class="chat_header" (click)="is_hide = !is_hide">
+  <div class="chat_header" (click)="toggleChat()">
     <p>in·tro·spec·tion
-      <span>#ChatBox</span>
+      <span class="badge badge-pill badge-danger ml-2" *ngIf="is_hide && new_msg_count > 0">{{new_msg_count}}</span>
     </p>
   </div>
 

@@ -13,6 +13,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private msg_list: ChatMessage[] = [];
   private msg_sub: ISubscription;
+  private new_msg_count = -1;
 
   private is_hide = true;
   private is_collapse = false;
@@ -22,13 +23,18 @@ export class ChatComponent implements OnInit, OnDestroy {
       if (user) {
         this.is_collapse = false;
       } else {
-        this.is_collapse = true;
+        this.is_collapse = false; // CHANGE
       }
     });
   }
 
   ngOnInit() {
-    this.msg_sub = this.chatService.getMessageObservable().subscribe(msg_list => this.msg_list = msg_list);
+    this.msg_sub = this.chatService.getMessageObservable().subscribe(msg_list => {
+      this.msg_list = msg_list;
+      if (this.is_hide && this.new_msg_count < 10) {
+        this.new_msg_count++;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -38,6 +44,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   onEnter(msg: string) {
     this.chatService.sendMessage(msg);
+  }
+
+  toggleChat() {
+    this.is_hide = !this.is_hide;
+    this.new_msg_count = 0;
   }
 
 }

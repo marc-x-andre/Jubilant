@@ -1,7 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/operator/take';
 import { AppStore, GAME_STATE } from '../app.store';
 import { PlayService } from '../service/play.service';
+import { StatsService } from '../service/stats.service';
 
 @Component({
   selector: 'app-play',
@@ -17,7 +19,7 @@ export class PlayComponent implements OnInit {
   private state;
   private progress = 12;
 
-  constructor(private playService: PlayService) { }
+  constructor(private playService: PlayService, private statsService: StatsService, private toastr: ToastrService) { }
 
   ngOnInit() {
     AppStore.userProgress.subscribe(progress => this.progress = progress);
@@ -28,6 +30,11 @@ export class PlayComponent implements OnInit {
       this.state = state;
       if (this.state === GAME_STATE.FINISH) {
         this.textarea.nativeElement.disabled = true;
+        setTimeout(() => {
+          AppStore.userProgress.next(100);
+          this.statsService.sendProgress(100);
+          this.toastr.success('You won !!!!', 'Congratulations...');
+        }, 100);
       }
     });
   }
@@ -39,8 +46,10 @@ export class PlayComponent implements OnInit {
     } else if (event.keyCode === 86 && this.control_entry) {
       setTimeout(() => {
         this.textarea.nativeElement.value = '';
-      }, 50);
+      }, 100);
+      this.textarea.nativeElement.disabled = true;
       this.playService.hackerDetect();
+      this.toastr.warning('DON\'T');
     } else {
       this.control_entry = false;
     }
