@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" routerLink="/" routerLinkActive="active">Jubilant</a>
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active">Jubilant 🐎</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,29 +8,28 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" routerLink="/play" routerLinkActive="active">Play</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" href="http://10.140.23.43/admin">Admin</a>
+        <a class="nav-link" href="http://10.140.23.43/admin" *ngIf="user?.isAdmin">Admin</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link">
+        <a class="nav-link" *ngIf="timer">
           <span *ngIf="isGame">New game in </span>
           <span *ngIf="!isGame">Current game end in </span>
-          <span *ngIf="timer">{{timer}}</span>
+          <span>{{timer}}</span>
+        </a>
+        <a class="nav-link" *ngIf="!timer">
+          <span>Please 💨</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login 🌈</a>
       </li>
     </ul>
   </div>

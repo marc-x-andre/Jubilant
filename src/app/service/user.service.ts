@@ -10,9 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {
     this.fetchCurrentUser();
-    this.login('user', 'user');
   }
-
 
   public fetchCurrentUser() {
     this.http.get(`${environment.api}/user`).subscribe(data => {
