@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Stats } from './model/stats.model';
 
 const COOLDOWN = 60;
 const GAME_LENGHT = 300;
@@ -25,11 +26,11 @@ export class AppStore {
 
     private static is_game: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private static timer_game: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    private static users_progress: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
     public static isGameObservable: Observable<boolean> = AppStore.is_game.asObservable();
     public static timerGameObservable: Observable<number> = AppStore.timer_game.asObservable();
-    public static usersProgress: Observable<any[]> = AppStore.users_progress.asObservable();
+
+    public static usersProgress: BehaviorSubject<Stats[]> = new BehaviorSubject<Stats[]>([]);
 
     constructor(private socket: Socket) {
         setInterval(() => {

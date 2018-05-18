@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppStore } from '../app.store';
+import { Stats } from '../model/stats.model';
 import { StatsService } from '../service/stats.service';
 
 @Component({
@@ -8,8 +10,14 @@ import { StatsService } from '../service/stats.service';
 })
 export class DashboardComponent implements OnInit {
 
+  private usersStats: Stats[] = [];
+
   constructor(private statsService: StatsService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    AppStore.usersProgress.subscribe(usersProgress => {
+      this.usersStats = usersProgress;
+    });
+  }
 
 }

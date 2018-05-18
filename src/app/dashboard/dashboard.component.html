@@ -1,10 +1,8 @@
 <mat-card>
-
-  kjdfxZKgcvsdfJGvnjiodfkxcv
-
+  There is {{usersStats.length}} playing this round.
   <mat-list role="list">
     <mat-list-item role="listitem" *ngFor="let user of usersStats">
-      <div class="name">{{user.pseudo}}</div>
+      <div class="name">{{user.username}}</div>
       <div class="progress">
         <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 100%" *ngIf="user.progress === 100">100%</div>
 
