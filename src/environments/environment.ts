@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   api: 'http://10.10.78.239/api',
-  socket: 'http://10.10.78.239/api',
+  socket: 'http://10.10.73.244:5000',
 
 };

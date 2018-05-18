@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocketIoConfig, SocketIoModule } from 'ng-socket-io';
 import { ToastrModule } from 'ngx-toastr';
+import { environment } from '../environments/environment.prod';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppStore } from './app.store';
@@ -20,7 +21,7 @@ import { PlayService } from './service/play.service';
 import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
 
-const config: SocketIoConfig = { url: 'http://10.10.73.244:5000', options: {} };
+const config: SocketIoConfig = { url: environment.socket, options: {} };
 
 @NgModule({
   declarations: [

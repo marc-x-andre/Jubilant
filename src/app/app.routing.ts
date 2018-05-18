@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     },
     {
         path: '**',
-        redirectTo: '/play'
+        redirectTo: '/dashboard'
     }
 ];
 
