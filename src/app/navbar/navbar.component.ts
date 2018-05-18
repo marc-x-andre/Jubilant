@@ -26,8 +26,6 @@ export class NavbarComponent implements OnInit {
 
     this.userService.getUserObservable().subscribe(user => {
       this.isLogin = (user) ? true : false;
-      console.log(this.isLogin);
-
     });
   }
 

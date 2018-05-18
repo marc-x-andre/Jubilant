@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Socket } from 'ng-socket-io';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { environment } from '../../environments/environment';
+import { AppStore } from '../app.store';
 import { UserModel } from '../model/user.model';
 
 @Injectable()
@@ -13,7 +15,7 @@ export class UserService {
 
   public userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(undefined);
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
+  constructor(private http: HttpClient, private socket: Socket, private toastr: ToastrService, private router: Router) {
     this.fetchCurrentUser();
   }
 
@@ -39,9 +41,22 @@ export class UserService {
       }
       this.toastr.error(`You shall not pass`, 'Bad Credentials');
       return Observable.of(false);
-    }, err => {
+    });
+  }
+
+  public loginAnonym(): Observable<boolean> {
+    return this.http.get(`${environment.socket}/user`).switchMap(res => {
+      if (res && !res['error']) {
+        res['data'].anonyme = true;
+        this.userSubject.next(res['data']);
+        this.toastr.success(`We are anonymous...`, 'Login');
+        return Observable.of(true);
+      } else if (res['error']) {
+        this.toastr.error(`No more anonymous.`, 'Login');
+        return Observable.of(false);
+      }
       this.toastr.error(`You shall not pass`, 'Bad Credentials');
-      return true;
+      return Observable.of(false);
     });
   }
 
@@ -51,6 +66,8 @@ export class UserService {
   *
   */
   public logout() {
+    AppStore.resetData();
+    this.socket.emit('free', JSON.stringify({ username: this.userSubject.getValue().username }));
     this.http.get(`${environment.api}/logout`, { withCredentials: true }).subscribe(data => {
       this.userSubject.next(undefined);
       this.toastr.info('You Are All Free Now!', 'Logout');

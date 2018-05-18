@@ -9,47 +9,54 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let users = [
-    { username: 'Doggo 🐶', progress: 0, free: true },
-    { username: 'Mimi 🐭', progress: 0, free: true },
-    { username: 'Tyro 🦖', progress: 0, free: true },
-    { username: 'Bloup 🐠', progress: 0, free: true },
-    { username: 'Ham-burger 🐹', progress: 0, free: true },
-    { username: 'Boing 🐰', progress: 0, free: true },
-    { username: 'Le Jubilant 🐴', progress: 0, free: true },
-    { username: 'Lulu 🦄', progress: 0, free: true },
-    { username: 'Komodo 🐲', progress: 0, free: true },
-    { username: 'Froggy 🐸', progress: 0, free: true },
-    { username: 'Rocco 🐷', progress: 0, free: true },
-    { username: 'Presto 🐢', progress: 0, free: true },
-    { username: 'Touch 🐙', progress: 0, free: true },
-    { username: 'Neko 🐱', progress: 0, free: true },
-    { username: 'Wally 🐳', progress: 0, free: true },
-    { username: 'Batman 🦇', progress: 0, free: true },
-    { username: 'Jiji 🐼', progress: 0, free: true }
+    { username: 'Doggo 🐶', free: true },
+    { username: 'Mimi 🐭', free: true },
+    { username: 'Tyro 🦖', free: true },
+    { username: 'Bloup 🐠', free: true },
+    { username: 'Ham-burger 🐹', free: true },
+    { username: 'Boing 🐰', free: true },
+    { username: 'Le Jubilant 🐴', free: true },
+    { username: 'Lulu 🦄', free: true },
+    { username: 'Komodo 🐲', free: true },
+    { username: 'Froggy 🐸', free: true },
+    { username: 'Rocco 🐷', free: true },
+    { username: 'Presto 🐢', free: true },
+    { username: 'Touch 🐙', free: true },
+    { username: 'Neko 🐱', free: true },
+    { username: 'Wally 🐳', free: true },
+    { username: 'Batman 🦇', free: true },
+    { username: 'Jiji 🐼', free: true }
 ];
 
 let game_time = 0;
 let is_game = 0;
 let intervalId;
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get('/', (req, res) => {
     res.send('WebSocket Server!');
 });
 
 app.get('/free', (req, res) => {
+    res.send(users);
     users = users.map(user => {
         user.free = true;
         return user;
     });
-    res.send('Kidou');
 });
-
 
 app.get('/user', (req, res) => {
     const user = users.find(user => user.free === true);
     if (user) {
         user.free = false;
+
         res.json({ data: user });
+        console.log(user);
     } else {
         res.json({ error: 'no_more_user' });
     }
@@ -69,6 +76,11 @@ io.on('connection', (socket) => {
 
     socket.on('progress', (data) => {
         io.emit('progress', data);
+    });
+
+    socket.on('free', (data) => {
+        const user = users.find(user => user.username === JSON.parse(data).username);
+        user.free = true;
     });
 
     if (intervalId === undefined) {

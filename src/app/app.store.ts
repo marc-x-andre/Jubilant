@@ -34,5 +34,10 @@ export class AppStore {
 
     constructor() { }
 
+    public static resetData() {
+        AppStore.userEntry.next('');
+        AppStore.userProgress.next(0);
+    }
+
 }
 
