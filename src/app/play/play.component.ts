@@ -20,10 +20,10 @@ export class PlayComponent implements OnInit {
   constructor(private playService: PlayService) { }
 
   ngOnInit() {
-    AppStore.user_progress.subscribe(progress => this.progress = progress);
+    AppStore.userProgress.subscribe(progress => this.progress = progress);
+    AppStore.gameEntry.subscribe(game_string => this.game_string = game_string);
+    AppStore.userEntry.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
 
-    AppStore.game_string.subscribe(game_string => this.game_string = game_string);
-    AppStore.user_string.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
     AppStore.STATE.subscribe(state => {
       this.state = state;
       if (this.state === GAME_STATE.FINISH) {
@@ -49,6 +49,7 @@ export class PlayComponent implements OnInit {
   entryKey() {
     setTimeout(() => {
       this.playService.userEntry(this.textarea.nativeElement.value);
+      AppStore.userEntry.next(this.textarea.nativeElement.value);
     }, 100);
   }
 

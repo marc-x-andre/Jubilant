@@ -19,19 +19,19 @@ export class AppStore {
 
     public static STATE: EventEmitter<GAME_STATE> = new EventEmitter<GAME_STATE>();
 
-    public static game_string: BehaviorSubject<string> = new BehaviorSubject<string>(MOCK_GAME);
-    public static user_string: BehaviorSubject<string> = new BehaviorSubject<string>('');
-    public static user_progress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    public static gameEntry: BehaviorSubject<string> = new BehaviorSubject<string>(MOCK_GAME);
+    public static userEntry: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public static userProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     private static is_game: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private static timer_game: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private static users_progress: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
     public static isGameObservable: Observable<boolean> = AppStore.is_game.asObservable();
     public static timerGameObservable: Observable<number> = AppStore.timer_game.asObservable();
-
+    public static usersProgress: Observable<any[]> = AppStore.users_progress.asObservable();
 
     constructor(private socket: Socket) {
-
         setInterval(() => {
             const game_time = AppStore.timer_game.getValue();
             const is_game = AppStore.is_game.getValue();
@@ -47,7 +47,6 @@ export class AppStore {
                 }
             }
         }, 1000);
-
     }
 
 }

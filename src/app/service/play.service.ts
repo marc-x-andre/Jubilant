@@ -28,14 +28,14 @@ export class PlayService {
         // Detect Error
         for (let i = 0; i < user_answer.length; i++) {
             goodChar = i;
-            if (user_answer[i] !== AppStore.game_string.getValue()[i]) {
+            if (user_answer[i] !== AppStore.gameEntry.getValue()[i]) {
                 state = GAME_STATE.ERROR;
                 goodChar++;
                 break;
             }
         }
         // Detect Finish
-        if (user_answer.length === AppStore.game_string.getValue().length && state !== GAME_STATE.ERROR) {
+        if (user_answer.length === AppStore.gameEntry.getValue().length && state !== GAME_STATE.ERROR) {
             state = GAME_STATE.FINISH;
         }
         AppStore.STATE.emit(state);
@@ -43,8 +43,8 @@ export class PlayService {
     }
 
     computeProgress(goodChar: number) {
-        const progress = (100 * goodChar) / AppStore.game_string.getValue().length;
-        AppStore.user_progress.next(Math.floor(progress));
+        const progress = (100 * goodChar) / AppStore.gameEntry.getValue().length;
+        AppStore.userProgress.next(Math.floor(progress));
         this.socket.emit('progress', JSON.stringify({ username: 'TEST', message: progress }));
     }
 
