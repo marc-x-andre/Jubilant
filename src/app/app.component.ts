@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppStore } from './app.store';
+import { UserModel } from './model/user.model';
 import { UserService } from './service/user.service';
 
 @Component({
@@ -8,7 +9,12 @@ import { UserService } from './service/user.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private userService: UserService, private appStore: AppStore) {
 
+  private user: UserModel;
+
+  constructor(private userService: UserService, private appStore: AppStore) {
+    this.userService.getUserObservable().subscribe(user => {
+      this.user = user;
+    });
   }
 }
