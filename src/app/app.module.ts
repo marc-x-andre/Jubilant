@@ -16,10 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PlayComponent } from './play/play.component';
 import { AuthGuard } from './service/auth.service';
-import { ChatService } from './service/chat.service';
 import { PlayService } from './service/play.service';
-import { StatsService } from './service/stats.service';
 import { UserService } from './service/user.service';
+import { SocketService } from './service/socket.service';
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
 
@@ -45,7 +44,7 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     FormsModule
   ],
   entryComponents: [],
-  providers: [StatsService, UserService, PlayService, ChatService, AuthGuard, AppStore],
+  providers: [SocketService, UserService, PlayService, AuthGuard, AppStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/operator/take';
 import { AppStore, GAME_STATE } from '../app.store';
 import { PlayService } from '../service/play.service';
-import { StatsService } from '../service/stats.service';
 import { SocketService } from '../service/socket.service';
 
 @Component({
@@ -13,14 +12,14 @@ import { SocketService } from '../service/socket.service';
 })
 export class PlayComponent implements OnInit {
 
-  @ViewChild('textarea') private textarea: ElementRef;
-  private is_started = true;
-  private game_string;
-  private control_entry;
-  private state;
-  private progress = 12;
-  private timer;
-  private isGame;
+  @ViewChild('textarea') public textarea: ElementRef;
+  public is_started = true;
+  public game_string;
+  public control_entry;
+  public state;
+  public progress = 12;
+  public timer;
+  public isGame;
 
   constructor(private playService: PlayService, private socketService: SocketService, private toastr: ToastrService) { }
 

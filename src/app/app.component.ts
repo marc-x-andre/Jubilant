@@ -9,8 +9,7 @@ import { UserService } from './service/user.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  private user: UserModel;
+  public user: UserModel;
 
   constructor() {
     AppStore.user.subscribe(user => {

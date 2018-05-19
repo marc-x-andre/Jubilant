@@ -1,25 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { ChatService } from '../service/chat.service';
 import { UserService } from '../service/user.service';
 import { AppStore } from '../app.store';
 import { Message } from '../model/message.model';
+import { SocketService } from '../service/socket.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit {
 
-  private msg_list: Message[] = [];
-  private msg_sub: ISubscription;
-  private new_msg_count = -1;
+  public msg_list: Message[] = [];
+  public new_msg_count = -1;
 
-  private is_hide = true;
-  private is_collapse = false;
+  public is_hide = true;
+  public is_collapse = false;
 
-  constructor(private chatService: ChatService, private userService: UserService) {
+  constructor(private socketService: SocketService, private userService: UserService) {
     AppStore.user.subscribe(user => {
       if (user) {
         this.is_collapse = false;
@@ -30,7 +29,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.msg_sub = this.chatService.getMessageObservable().subscribe(msg_list => {
+    AppStore.chatMessage.subscribe(msg_list => {
       this.msg_list = msg_list;
       if (this.is_hide && this.new_msg_count < 10) {
         this.new_msg_count++;
@@ -38,13 +37,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.chatService.close();
-    this.msg_sub.unsubscribe();
-  }
-
   onEnter(msg: string) {
-    this.chatService.sendMessage(msg);
+    this.socketService.sendMessage(msg);
   }
 
   toggleChat() {

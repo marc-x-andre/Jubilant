@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { AppStore, GAME_STATE } from '../app.store';
-import { StatsService } from './stats.service';
 import { SocketService } from './socket.service';
 
 @Injectable()
@@ -10,7 +9,7 @@ export class PlayService {
     private is_game;
     private timer;
 
-    constructor(private socketService: SocketService, private statsService: StatsService) {
+    constructor(private socketService: SocketService) {
         AppStore.timerGame.switchMap(timer => {
             this.timer = timer;
             return AppStore.isGame;

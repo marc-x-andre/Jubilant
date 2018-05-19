@@ -6,14 +6,12 @@ import { UserModel } from '../model/user.model';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
-  @Input() user: UserModel;
-  
-  private isGame;
-  private timer;
+  @Input() public user: UserModel;
+  public isGame;
+  public timer;
 
   private isLogin = false;
 

@@ -8,6 +8,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+const loremIpsum = require('lorem-ipsum');
+
 let users = [
     { username: 'Doggo 🐶', free: true, progress: 0, position: 0 },
     { username: 'Mimi 🐭', free: true, progress: 0, position: 0 },
@@ -20,6 +22,7 @@ let users = [
     { username: 'Komodo 🐲', free: true, progress: 0, position: 0 },
     { username: 'Froggy 🐸', free: true, progress: 0, position: 0 },
     { username: 'Rocco 🐷', free: true, progress: 0, position: 0 },
+    { username: 'Happy 💩', free: true, progress: 0, position: 0 },
     { username: 'Presto 🐢', free: true, progress: 0, position: 0 },
     { username: 'Touch 🐙', free: true, progress: 0, position: 0 },
     { username: 'Neko 🐱', free: true, progress: 0, position: 0 },
@@ -31,12 +34,13 @@ let users = [
 let game_time = 0;
 let is_game = 0;
 let intervalId;
+let game_text = loremIpsum({ count: 1, units: 'paragraphs', paragraphUpperBound: 4, format: 'plain', random: Math.random, suffix: 'EOL' });
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+    app.use(function (req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 
 app.get('/', (req, res) => {
     res.send('WebSocket Server!');
@@ -64,18 +68,20 @@ io.on('connection', (socket) => {
 
     console.log('user connected');
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
+    socket.on('disconnect', (data) => {
+        console.log(data);
     });
+
     // Chat Message
     socket.on('message', (data) => {
         io.emit('message', data);
     });
+
     // When user press key
     socket.on('progress', (data) => {
         console.log(data);
-        
-        const players = users.filter( user => {
+
+        const players = users.filter(user => {
             if (!user.free) {
                 if (data.username === user.username) {
                     user.progress = data.progress;
@@ -102,18 +108,28 @@ io.on('connection', (socket) => {
                 if (is_game) {
                     game_time = GAME_LENGHT;
                     is_game = false;
-                    io.emit('progress', []);
+                    resetProgress();
+                    game_text = loremIpsum({ count: 1, units: 'paragraphs', paragraphUpperBound: 4, format: 'plain', random: Math.random, suffix: 'EOL' });
                 } else {
                     game_time = COOLDOWN;
                     is_game = true;
                 }
             }
-            io.emit('time', { game_time: game_time, is_game: is_game });
+            io.emit('time', { game_time: game_time, is_game: is_game, game_text: game_text });
         }, 1000);
     }
 
 });
 
-http.listen(5000, () => {
-    console.log('Server started on port 5000');
+
+function resetProgress() {
+    users.forEach(user => {
+        user.progress = 0;
+        user.position = 0;
+    });
+}
+
+
+http.listen(4201, () => {
+    console.log('Server started on port 4201');
 });

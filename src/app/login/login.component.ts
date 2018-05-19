@@ -9,10 +9,9 @@ import { AppStore } from '../app.store';
 })
 export class LoginComponent implements OnInit {
 
-  private username = '';
-  private password = '';
-
-  private user;
+  public username = '';
+  public password = '';
+  public user;
 
   constructor(
     private userService: UserService,
