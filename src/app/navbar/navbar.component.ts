@@ -19,12 +19,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    AppStore.timerGameObservable.switchMap(time => {
+    AppStore.timerGame.switchMap(time => {
       this.timer = time;
-      return AppStore.isGameObservable;
+      return AppStore.isGame;
     }).subscribe(isGame => this.isGame = isGame);
 
-    this.userService.getUserObservable().subscribe(user => {
+    AppStore.user.subscribe(user => {
       this.isLogin = (user) ? true : false;
     });
   }

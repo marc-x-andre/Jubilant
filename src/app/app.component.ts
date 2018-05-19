@@ -12,8 +12,8 @@ export class AppComponent {
 
   private user: UserModel;
 
-  constructor(private userService: UserService, private appStore: AppStore) {
-    this.userService.getUserObservable().subscribe(user => {
+  constructor() {
+    AppStore.user.subscribe(user => {
       this.user = user;
     });
   }

@@ -16,11 +16,11 @@ export class StatsService {
         });
         this.socket.fromEvent<any>('time').subscribe(data => {
             // console.log(data.game_time);
-            AppStore.is_game.next(data.is_game);
-            AppStore.timer_game.next(data.game_time);
+            AppStore.isGame.next(data.is_game);
+            AppStore.timerGame.next(data.game_time);
         });
 
-        this.userService.getUserObservable().subscribe(user => {
+        AppStore.user.subscribe(user => {
             this.user = user;
         });
     }

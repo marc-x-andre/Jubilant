@@ -12,9 +12,9 @@ export class PlayService {
     private timer;
 
     constructor(private socket: Socket, private statsService: StatsService) {
-        AppStore.timerGameObservable.switchMap(timer => {
+        AppStore.timerGame.switchMap(timer => {
             this.timer = timer;
-            return AppStore.isGameObservable;
+            return AppStore.isGame;
         }).subscribe(is_game => this.is_game = is_game);
     }
 
@@ -39,7 +39,7 @@ export class PlayService {
         if (user_answer.length === AppStore.gameEntry.getValue().length && state !== GAME_STATE.ERROR) {
             state = GAME_STATE.FINISH;
         }
-        AppStore.STATE.emit(state);
+        AppStore.gameState.emit(state);
         this.computeProgress(goodChar);
     }
 

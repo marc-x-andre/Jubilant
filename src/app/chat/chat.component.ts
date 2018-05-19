@@ -3,6 +3,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { ChatMessage } from '../model/chat_entry';
 import { ChatService } from '../service/chat.service';
 import { UserService } from '../service/user.service';
+import { AppStore } from '../app.store';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private is_collapse = false;
 
   constructor(private chatService: ChatService, private userService: UserService) {
-    this.userService.getUserObservable().subscribe(user => {
+    AppStore.user.subscribe(user => {
       if (user) {
         this.is_collapse = false;
       } else {

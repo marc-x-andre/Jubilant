@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { AppStore } from '../app.store';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.userService.getUserObservable().take(1).switchMap(user => {
+    AppStore.user.take(1).switchMap(user => {
       this.user = user;
       return this.route.params;
     }).subscribe(params => {

@@ -28,7 +28,7 @@ export class PlayComponent implements OnInit {
     AppStore.gameEntry.subscribe(game_string => this.game_string = game_string);
     AppStore.userEntry.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
 
-    AppStore.STATE.subscribe(state => {
+    AppStore.gameState.subscribe(state => {
       this.state = state;
       if (this.state === GAME_STATE.FINISH) {
         this.textarea.nativeElement.disabled = true;
@@ -40,9 +40,9 @@ export class PlayComponent implements OnInit {
       }
     });
 
-    AppStore.timerGameObservable.switchMap(time => {
+    AppStore.timerGame.switchMap(time => {
       this.timer = time;
-      return AppStore.isGameObservable;
+      return AppStore.isGame;
     }).subscribe(isGame => {
       this.isGame = isGame;
       if (isGame) {

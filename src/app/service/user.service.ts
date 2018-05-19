@@ -13,8 +13,6 @@ import { UserModel } from '../model/user.model';
 @Injectable()
 export class UserService {
 
-  public userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(undefined);
-
   constructor(private http: HttpClient, private socket: Socket, private toastr: ToastrService, private router: Router) {
     this.fetchCurrentUser();
   }
@@ -22,20 +20,16 @@ export class UserService {
   public fetchCurrentUser() {
     this.http.get(`${environment.api}/user`, { withCredentials: true }).subscribe((data: UserModel) => {
       if (data) {
-        this.userSubject.next(data);
+        AppStore.user.next(data);
       }
     });
-  }
-
-  public getUserObservable(): Observable<UserModel> {
-    return this.userSubject.asObservable();
   }
 
   public login(username: string, password: string): Observable<boolean> {
     return this.http.post(`${environment.api}/login`, null, { params: { username: username, password: password }, withCredentials: true }
     ).switchMap(data => {
       if (data['USER']) {
-        this.userSubject.next(data['USER']);
+        AppStore.user.next(data['USER']);
         this.toastr.success(`I'm ${username}, and this is my favorite game on the Internet`, 'Login');
         return Observable.of(true);
       }
@@ -46,13 +40,13 @@ export class UserService {
 
   public loginAnonym(): Observable<boolean> {
     return this.http.get(`${environment.socket}/user`).switchMap(res => {
-      if (res && !res['error']) {
-        res['data'].anonyme = true;
-        this.userSubject.next(res['data']);
+      if (!res['error']) {
+        res['data'].isAnonyme = true;
+        AppStore.user.next(res['data']);
         this.toastr.success(`We are anonymous...`, 'Login');
         return Observable.of(true);
       } else if (res['error']) {
-        this.toastr.error(`No more anonymous.`, 'Login');
+        this.toastr.error(`Sorry no more anonymous.`, 'Login');
         return Observable.of(false);
       }
       this.toastr.error(`You shall not pass`, 'Bad Credentials');
@@ -61,21 +55,20 @@ export class UserService {
   }
 
   /*
-  *
   * this.userSubject.next(undefined); Good Example ?
-  *
   */
   public logout() {
     AppStore.resetData();
-    this.socket.emit('free', JSON.stringify({ username: this.userSubject.getValue().username }));
-    this.http.get(`${environment.api}/logout`, { withCredentials: true }).subscribe(data => {
-      this.userSubject.next(undefined);
-      this.toastr.info('You Are All Free Now!', 'Logout');
-      window.open('https://www.youtube.com/watch?v=_yYS0ZZdsnA', '_blank');
-      this.router.navigate(['/dashboard']);
-    }, error => {
-      console.log('what DO YOU WANT', error['error']);
-    });
+    if (AppStore.user.getValue().isAnonyme) {
+      this.socket.emit('free', JSON.stringify({ username: AppStore.user.getValue().username }));
+    } else {
+      this.http.get(`${environment.api}/logout`, { withCredentials: true }).subscribe(data => {
+        AppStore.user.next(undefined);
+        this.toastr.info('You Are All Free Now!', 'Logout');
+        window.open('https://www.youtube.com/watch?v=_yYS0ZZdsnA', '_blank');
+        this.router.navigate(['/dashboard']);
+      });
+    }
   }
 
 }

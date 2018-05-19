@@ -3,6 +3,7 @@ import { Socket } from 'ng-socket-io';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ChatMessage } from '../model/chat_entry';
 import { UserService } from './user.service';
+import { AppStore } from '../app.store';
 
 @Injectable()
 export class ChatService {
@@ -18,7 +19,7 @@ export class ChatService {
             this.chat_msg.next(this.chat_msg.getValue());
         });
 
-        this.userService.getUserObservable().subscribe(user => {
+        AppStore.user.subscribe(user => {
             this.user = user;
         });
     }
