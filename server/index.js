@@ -36,11 +36,11 @@ let is_game = 0;
 let intervalId;
 let game_text = loremIpsum({ count: 1, units: 'paragraphs', paragraphUpperBound: 4, format: 'plain', random: Math.random, suffix: 'EOL' });
 
-    app.use(function (req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-    });
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.get('/', (req, res) => {
     res.send('WebSocket Server!');
@@ -67,6 +67,7 @@ app.get('/user', (req, res) => {
 io.on('connection', (socket) => {
 
     console.log('user connected');
+    emitProgress();
 
     socket.on('disconnect', (data) => {
         console.log(data);
@@ -79,18 +80,7 @@ io.on('connection', (socket) => {
 
     // When user press key
     socket.on('progress', (data) => {
-        console.log(data);
-
-        const players = users.filter(user => {
-            if (!user.free) {
-                if (data.username === user.username) {
-                    user.progress = data.progress;
-                }
-                return true;
-            }
-            return false;
-        });
-        io.emit('progress', players);
+        emitProgress(data);
     });
 
     // When user logout
@@ -109,6 +99,7 @@ io.on('connection', (socket) => {
                     game_time = GAME_LENGHT;
                     is_game = false;
                     resetProgress();
+                    emitProgress();
                     game_text = loremIpsum({ count: 1, units: 'paragraphs', paragraphUpperBound: 4, format: 'plain', random: Math.random, suffix: 'EOL' });
                 } else {
                     game_time = COOLDOWN;
@@ -119,8 +110,19 @@ io.on('connection', (socket) => {
         }, 1000);
     }
 
+    function emitProgress(data) {
+        const players = users.filter(user => {
+            if (!user.free) {
+                if (data && data.username === user.username) {
+                    user.progress = data.progress;
+                }
+                return true;
+            }
+            return false;
+        });
+        io.emit('progress', players);
+    }
 });
-
 
 function resetProgress() {
     users.forEach(user => {
@@ -128,7 +130,6 @@ function resetProgress() {
         user.position = 0;
     });
 }
-
 
 http.listen(4201, () => {
     console.log('Server started on port 4201');

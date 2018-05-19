@@ -26,7 +26,7 @@ export class PlayComponent implements OnInit {
   ngOnInit() {
     AppStore.userProgress.subscribe(progress => this.progress = progress);
     AppStore.gameEntry.subscribe(game_string => this.game_string = game_string);
-    AppStore.userEntry.asObservable().take(1).subscribe(user_string => this.textarea.nativeElement.value = user_string);
+    AppStore.userEntry.asObservable().subscribe(user_string => this.textarea.nativeElement.value = user_string);
 
     AppStore.gameState.subscribe(state => {
       this.state = state;

@@ -24,6 +24,8 @@ export class SocketService {
 
             if (AppStore.gameEntry.getValue() !== data.game_text) {
                 AppStore.gameEntry.next(data.game_text);
+                AppStore.userEntry.next('');
+                AppStore.userProgress.next(0);
             }
         });
 
