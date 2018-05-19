@@ -61,6 +61,7 @@ export class UserService {
     AppStore.resetData();
     if (AppStore.user.getValue().isAnonyme) {
       this.socket.emit('free', JSON.stringify({ username: AppStore.user.getValue().username }));
+      AppStore.user.next(undefined);
     } else {
       this.http.get(`${environment.api}/logout`, { withCredentials: true }).subscribe(data => {
         AppStore.user.next(undefined);

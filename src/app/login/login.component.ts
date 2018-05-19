@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       return this.route.params;
     }).subscribe(params => {
       const info = params['info'];
-      if (info === 'out') {
+      if (info === 'out' && this.user) {
         this.logout();
       } else if (this.user) {
         this.router.navigate(['/play']);
