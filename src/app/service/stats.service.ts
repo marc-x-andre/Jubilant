@@ -36,7 +36,6 @@ export class StatsService {
     */
     private computeProgress(data: Stats) {
         const userProgress: Stats = AppStore.usersProgress.getValue().find(entry => entry.username === data.username);
-
         if (userProgress) {
             userProgress.progress = data.progress;
         } else {

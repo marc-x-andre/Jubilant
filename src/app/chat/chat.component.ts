@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { ChatMessage } from '../model/chat_entry';
 import { ChatService } from '../service/chat.service';
 import { UserService } from '../service/user.service';
 import { AppStore } from '../app.store';
+import { Message } from '../model/message.model';
 
 @Component({
   selector: 'app-chat',
@@ -12,7 +12,7 @@ import { AppStore } from '../app.store';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
-  private msg_list: ChatMessage[] = [];
+  private msg_list: Message[] = [];
   private msg_sub: ISubscription;
   private new_msg_count = -1;
 

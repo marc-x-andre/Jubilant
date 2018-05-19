@@ -9,23 +9,23 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let users = [
-    { username: 'Doggo 🐶', free: true },
-    { username: 'Mimi 🐭', free: true },
-    { username: 'Tyro 🦖', free: true },
-    { username: 'Bloup 🐠', free: true },
-    { username: 'Ham-burger 🐹', free: true },
-    { username: 'Boing 🐰', free: true },
-    { username: 'Le Jubilant 🐴', free: true },
-    { username: 'Lulu 🦄', free: true },
-    { username: 'Komodo 🐲', free: true },
-    { username: 'Froggy 🐸', free: true },
-    { username: 'Rocco 🐷', free: true },
-    { username: 'Presto 🐢', free: true },
-    { username: 'Touch 🐙', free: true },
-    { username: 'Neko 🐱', free: true },
-    { username: 'Wally 🐳', free: true },
-    { username: 'Batman 🦇', free: true },
-    { username: 'Jiji 🐼', free: true }
+    { username: 'Doggo 🐶', free: true, progress: 0, position: 0 },
+    { username: 'Mimi 🐭', free: true, progress: 0, position: 0 },
+    { username: 'Tyro 🦖', free: true, progress: 0, position: 0 },
+    { username: 'Bloup 🐠', free: true, progress: 0, position: 0 },
+    { username: 'Ham-burger 🐹', free: true, progress: 0, position: 0 },
+    { username: 'Boing 🐰', free: true, progress: 0, position: 0 },
+    { username: 'Le Jubilant 🐴', free: true, progress: 0, position: 0 },
+    { username: 'Lulu 🦄', free: true, progress: 0, position: 0 },
+    { username: 'Komodo 🐲', free: true, progress: 0, position: 0 },
+    { username: 'Froggy 🐸', free: true, progress: 0, position: 0 },
+    { username: 'Rocco 🐷', free: true, progress: 0, position: 0 },
+    { username: 'Presto 🐢', free: true, progress: 0, position: 0 },
+    { username: 'Touch 🐙', free: true, progress: 0, position: 0 },
+    { username: 'Neko 🐱', free: true, progress: 0, position: 0 },
+    { username: 'Wally 🐳', free: true, progress: 0, position: 0 },
+    { username: 'Batman 🦇', free: true, progress: 0, position: 0 },
+    { username: 'Jiji 🐼', free: true, progress: 0, position: 0 }
 ];
 
 let game_time = 0;
@@ -54,9 +54,7 @@ app.get('/user', (req, res) => {
     const user = users.find(user => user.free === true);
     if (user) {
         user.free = false;
-
         res.json({ data: user });
-        console.log(user);
     } else {
         res.json({ error: 'no_more_user' });
     }
@@ -69,20 +67,31 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
-
+    // Chat Message
     socket.on('message', (data) => {
         io.emit('message', data);
     });
-
+    // When user press key
     socket.on('progress', (data) => {
-        io.emit('progress', data);
+        const players = users.filter( user => {
+            if (user.free) {
+                if (data.username === user.username) {
+                    user.progress = data.progress;
+                }
+                return true;
+            }
+            return false;
+        });
+        io.emit('progress', players);
     });
 
+    // When user logout
     socket.on('free', (data) => {
         const user = users.find(user => user.username === JSON.parse(data).username);
         user.free = true;
     });
 
+    // Emit time of current game
     if (intervalId === undefined) {
         intervalId = setInterval(() => {
             if (game_time > 0) {

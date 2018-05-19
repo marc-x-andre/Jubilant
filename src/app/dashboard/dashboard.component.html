@@ -1,5 +1,5 @@
 <mat-card>
-  There is {{usersStats.length}} playing this round.
+  There is {{usersStats.length}} player<span *ngIf="usersStats.length > 1">s</span> in this round.
   <mat-list role="list">
     <mat-list-item role="listitem" *ngFor="let user of usersStats">
       <div class="name">{{user.username}}</div>

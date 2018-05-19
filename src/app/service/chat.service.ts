@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ChatMessage } from '../model/chat_entry';
 import { UserService } from './user.service';
 import { AppStore } from '../app.store';
+import { Message } from '../model/message.model';
 
 @Injectable()
 export class ChatService {
 
     private user;
 
-    private chat_msg: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]);
+    private chat_msg: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 
     constructor(private socket: Socket, private userService: UserService) {
 
