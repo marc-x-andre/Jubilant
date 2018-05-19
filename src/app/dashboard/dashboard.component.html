@@ -1,7 +1,7 @@
 <mat-card>
-  There is {{usersStats.length}} player<span *ngIf="usersStats.length > 1">s</span> in this round.
+  There is {{players.length}} player<span *ngIf="players.length > 1">s</span> in this round.
   <mat-list role="list">
-    <mat-list-item role="listitem" *ngFor="let user of usersStats">
+    <mat-list-item role="listitem" *ngFor="let user of players">
       <div class="name">{{user.username}}</div>
       <div class="progress">
         <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 100%" *ngIf="user.progress === 100">100%</div>

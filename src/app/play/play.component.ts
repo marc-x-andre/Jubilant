@@ -4,6 +4,7 @@ import 'rxjs/add/operator/take';
 import { AppStore, GAME_STATE } from '../app.store';
 import { PlayService } from '../service/play.service';
 import { StatsService } from '../service/stats.service';
+import { SocketService } from '../service/socket.service';
 
 @Component({
   selector: 'app-play',
@@ -21,7 +22,7 @@ export class PlayComponent implements OnInit {
   private timer;
   private isGame;
 
-  constructor(private playService: PlayService, private statsService: StatsService, private toastr: ToastrService) { }
+  constructor(private playService: PlayService, private socketService: SocketService, private toastr: ToastrService) { }
 
   ngOnInit() {
     AppStore.userProgress.subscribe(progress => this.progress = progress);
@@ -34,7 +35,7 @@ export class PlayComponent implements OnInit {
         this.textarea.nativeElement.disabled = true;
         setTimeout(() => {
           AppStore.userProgress.next(100);
-          this.statsService.sendProgress(100);
+          this.socketService.sendUserProgress(100);
           this.toastr.success('You won !!!!', 'Congratulations...');
         }, 100);
       }

@@ -1,7 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Stats } from './model/stats.model';
 import { UserModel } from './model/user.model';
 
 const MOCK_GAME = `Lorem ipsum dolor sit amet.`;
@@ -27,7 +26,7 @@ export class AppStore {
     public static isGame: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public static timerGame: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-    public static usersProgress: BehaviorSubject<Stats[]> = new BehaviorSubject<Stats[]>([]);
+    public static usersProgress: BehaviorSubject<UserModel[]> = new BehaviorSubject<UserModel[]>([]);
 
     public static user: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(undefined);
 

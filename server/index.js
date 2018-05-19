@@ -1,7 +1,7 @@
 'use strict';
 
-const COOLDOWN = 60;
-const GAME_LENGHT = 300;
+const COOLDOWN = 30;
+const GAME_LENGHT = 180;
 
 const express = require('express');
 const app = express();
@@ -73,8 +73,10 @@ io.on('connection', (socket) => {
     });
     // When user press key
     socket.on('progress', (data) => {
+        console.log(data);
+        
         const players = users.filter( user => {
-            if (user.free) {
+            if (!user.free) {
                 if (data.username === user.username) {
                     user.progress = data.progress;
                 }

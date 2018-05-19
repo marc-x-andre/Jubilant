@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStore } from '../app.store';
-import { Stats } from '../model/stats.model';
 import { StatsService } from '../service/stats.service';
+import { UserModel } from '../model/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +10,13 @@ import { StatsService } from '../service/stats.service';
 })
 export class DashboardComponent implements OnInit {
 
-  private usersStats: Stats[] = [];
+  private players: UserModel[] = [];
 
   constructor(private statsService: StatsService) { }
 
   ngOnInit() {
     AppStore.usersProgress.subscribe(usersProgress => {
-      this.usersStats = usersProgress;
+      this.players = usersProgress;
     });
   }
 

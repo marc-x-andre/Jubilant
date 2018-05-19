@@ -3,4 +3,5 @@ export class UserModel {
     username: string;
     isAdmin: boolean;
     isAnonyme: boolean;
+    progress: number;
 }
