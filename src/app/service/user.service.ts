@@ -10,18 +10,14 @@ import { AppStore } from '../app.store';
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient, private socket: Socket, private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private socket: Socket, ) { }
 
   public login(): Observable<boolean> {
-
     return this.http.get(`${environment.socket}/login`).switchMap(res => {
-      console.log(res);
       if (res['data']) {
         AppStore.user.next(res['data']);
-        this.toastr.success(`Your in... 🕵️‍`, 'Login');
         return Observable.of(true);
       }
-      this.toastr.error(`Sorry no more anonymous.`, 'Login');
       return Observable.of(false);
     });
   }
@@ -31,11 +27,8 @@ export class UserService {
   */
   public logout() {
     AppStore.resetData();
-
     this.socket.emit('free', JSON.stringify({ username: AppStore.user.getValue().username }));
     AppStore.user.next(undefined);
-
-    this.toastr.info('You Are All Free Now!', 'Logout');
     window.open('https://www.youtube.com/watch?v=_yYS0ZZdsnA', '_blank');
   }
 

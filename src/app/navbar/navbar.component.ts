@@ -3,6 +3,7 @@ import 'rxjs/add/operator/switchMap';
 import { AppStore } from '../app.store';
 import { UserModel } from '../model/user.model';
 import { UserService } from '../service/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
   private isLogin = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private toastr: ToastrService) { }
 
   ngOnInit() {
     AppStore.timerGame.switchMap(time => {
@@ -25,11 +26,18 @@ export class NavbarComponent implements OnInit {
   }
 
   login() {
-    this.userService.login().subscribe();
+    this.userService.login().subscribe(isLogin => {
+      if (isLogin) {
+        this.toastr.success(`Your in... 🕵️‍`, 'Login');
+      } else {
+        this.toastr.error(`Sorry no more anonymous.`, 'Login');
+      }
+    });
   }
 
   logout() {
     this.userService.logout();
+    this.toastr.info('You Are All Free Now!', 'Logout');
   }
 
 }
