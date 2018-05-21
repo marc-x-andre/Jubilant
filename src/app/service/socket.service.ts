@@ -18,7 +18,7 @@ export class SocketService {
         this.socket.fromEvent<any>('progress').subscribe(data => {
             AppStore.usersProgress.next(data);
         });
-        // Time & game state 
+        // Time & game state
         this.socket.fromEvent<any>('time').subscribe(data => {
             AppStore.isGame.next(data.is_game);
             AppStore.timerGame.next(data.game_time);
@@ -37,10 +37,13 @@ export class SocketService {
         });
 
         // New players
-        this.socket.fromEvent<any>('new_player').subscribe((user: UserModel) => {
-            this.toastr.info(`${user.username}`, 'New challenger approaching.');
+        this.socket.fromEvent<any>('new_player').subscribe((player: UserModel) => {
+            setTimeout(() => {
+                if (!this.user || this.user.username !== player.username) {
+                    this.toastr.info(`${player.username}`, 'New challenger approaching.');
+                }
+            }, 100);
         });
-
     }
 
     sendUserProgress(progress: number) {
