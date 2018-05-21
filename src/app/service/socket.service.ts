@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
-import { AppStore, GAME_STATE } from '../app.store';
+import { ToastrService } from 'ngx-toastr';
+import { AppStore } from '../app.store';
 import { UserModel } from '../model/user.model';
 
 @Injectable()
 export class SocketService {
     private user: UserModel;
 
-    constructor(private socket: Socket) {
+    constructor(private socket: Socket, private toastr: ToastrService) {
         // For user auth in message
         AppStore.user.subscribe(user => {
             this.user = user;
@@ -35,6 +36,11 @@ export class SocketService {
             AppStore.chatMessage.next(AppStore.chatMessage.getValue());
         });
 
+        // New players
+        this.socket.fromEvent<any>('new_player').subscribe((user: UserModel) => {
+            this.toastr.info(`${user.username}`, 'New challenger approaching.');
+        });
+
     }
 
     sendUserProgress(progress: number) {
@@ -46,6 +52,6 @@ export class SocketService {
     }
 
     close() {
-        this.socket.disconnect({username: this.user.username});
+        this.socket.disconnect({ username: this.user.username });
     }
 }

@@ -54,17 +54,19 @@ app.get('/free', (req, res) => {
     });
 });
 
-app.get('/user', (req, res) => {
-    const user = users.find(user => user.free === true);
-    if (user) {
-        user.free = false;
-        res.json({ data: user });
-    } else {
-        res.json({ error: 'no_more_user' });
-    }
-});
 
 io.on('connection', (socket) => {
+
+    app.get('/user', (req, res) => {
+        const user = users.find(user => user.free === true);
+        if (user) {
+            user.free = false;
+            res.json({ data: user });
+            io.emit('new_player', user);
+        } else {
+            res.json({ error: 'no_more_user' });
+        }
+    });
 
     console.log('user connected');
     emitProgress();
@@ -122,6 +124,8 @@ io.on('connection', (socket) => {
         });
         io.emit('progress', players);
     }
+
+
 });
 
 function resetProgress() {
