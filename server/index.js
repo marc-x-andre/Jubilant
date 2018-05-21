@@ -46,16 +46,10 @@ app.get('/', (req, res) => {
     res.send('WebSocket Server!');
 });
 
-app.get('/free', (req, res) => {
-    res.send(users);
-    users = users.map(user => {
-        user.free = true;
-        return user;
-    });
-});
-
-
 io.on('connection', (socket) => {
+
+    console.log('user connected');
+    emitProgress();
 
     app.get('/user', (req, res) => {
         const user = users.find(user => user.free === true);
@@ -66,13 +60,6 @@ io.on('connection', (socket) => {
         } else {
             res.json({ error: 'no_more_user' });
         }
-    });
-
-    console.log('user connected');
-    emitProgress();
-
-    socket.on('disconnect', (data) => {
-        console.log(data);
     });
 
     // Chat Message
@@ -86,9 +73,16 @@ io.on('connection', (socket) => {
     });
 
     // When user logout
-    socket.on('free', (data) => {
-        const user = users.find(user => user.username === JSON.parse(data).username);
-        user.free = true;
+    socket.on('free', (player) => {
+        if (player) {
+            const user = users.find(user => user.username === player.username);
+            if (user) {
+                user.free = true;
+                user.position = 0;
+                user.progress = 0;
+                io.emit('free', user);
+            }
+        }
     });
 
     // Emit time of current game
@@ -124,8 +118,6 @@ io.on('connection', (socket) => {
         });
         io.emit('progress', players);
     }
-
-
 });
 
 function resetProgress() {

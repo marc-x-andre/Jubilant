@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ISubscription } from 'rxjs/Subscription';
-import { UserService } from '../service/user.service';
+import { Component, OnInit } from '@angular/core';
 import { AppStore } from '../app.store';
 import { Message } from '../model/message.model';
 import { SocketService } from '../service/socket.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -38,7 +37,9 @@ export class ChatComponent implements OnInit {
   }
 
   onEnter(msg: string) {
-    this.socketService.sendMessage(msg);
+    if (msg.length > 0) {
+      this.socketService.sendMessage(msg);
+    }
   }
 
   toggleChat() {

@@ -32,7 +32,7 @@ export class SocketService {
 
         // Chat Message
         this.socket.fromEvent<any>('message').subscribe(msg => {
-            AppStore.chatMessage.getValue().push(JSON.parse(msg));
+            AppStore.chatMessage.getValue().push(msg);
             AppStore.chatMessage.next(AppStore.chatMessage.getValue());
         });
 
@@ -44,6 +44,10 @@ export class SocketService {
                 }
             }, 100);
         });
+
+        window.onbeforeunload = () => {
+            this.close();
+        };
     }
 
     sendUserProgress(progress: number) {
@@ -51,10 +55,11 @@ export class SocketService {
     }
 
     sendMessage(msg: string) {
-        this.socket.emit('message', JSON.stringify({ username: this.user.username, message: msg }));
+        this.socket.emit('message', { username: this.user.username, message: msg });
     }
 
     close() {
+        this.socket.emit('free', this.user);
         this.socket.disconnect({ username: this.user.username });
     }
 }
