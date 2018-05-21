@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
     console.log('user connected');
     emitProgress();
 
-    app.get('/user', (req, res) => {
+    app.get('/login', (req, res) => {
         const user = users.find(user => user.free === true);
         if (user) {
             user.free = false;

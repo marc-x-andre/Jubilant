@@ -14,6 +14,14 @@ export class SocketService {
             this.user = user;
         });
 
+        this.addSocketListener();
+
+        window.onbeforeunload = () => {
+            this.close();
+        };
+    }
+
+    addSocketListener() {
         // All players progress
         this.socket.fromEvent<any>('progress').subscribe(data => {
             AppStore.usersProgress.next(data);
@@ -44,10 +52,6 @@ export class SocketService {
                 }
             }, 100);
         });
-
-        window.onbeforeunload = () => {
-            this.close();
-        };
     }
 
     sendUserProgress(progress: number) {

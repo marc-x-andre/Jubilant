@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { AppStore } from '../app.store';
-import { UserService } from '../service/user.service';
 import { UserModel } from '../model/user.model';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +22,14 @@ export class NavbarComponent implements OnInit {
       this.timer = time;
       return AppStore.isGame;
     }).subscribe(isGame => this.isGame = isGame);
+  }
+
+  login() {
+    this.userService.login().subscribe();
+  }
+
+  logout() {
+    this.userService.logout();
   }
 
 }

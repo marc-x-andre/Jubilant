@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AppStore } from '../app.store';
 import { UserModel } from '../model/user.model';
 import { UserService } from './user.service';
-import { AppStore } from '../app.store';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
     private user: UserModel;
 
-    constructor(private router: Router, private userService: UserService) {
+    constructor(private router: Router, private userService: UserService, private toastr: ToastrService) {
         AppStore.user.subscribe(user => {
             this.user = user;
         });
@@ -24,8 +25,8 @@ export class AuthGuard implements CanActivate {
         if (this.user) {
             return true;
         }
-
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        this.toastr.error('Check under this toast', 'Not login');
+        this.router.navigate(['/dashboard'], { queryParams: { returnUrl: state.url } });
         return false;
     }
 

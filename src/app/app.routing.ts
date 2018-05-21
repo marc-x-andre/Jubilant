@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
 import { PlayComponent } from './play/play.component';
 import { AuthGuard } from './service/auth.service';
 
@@ -16,16 +15,8 @@ const appRoutes: Routes = [
         component: PlayComponent,
     },
     {
-        path: 'login',
-        component: LoginComponent,
-    },
-    {
-        path: 'login/:info',
-        component: LoginComponent
-    },
-    {
         path: '**',
-        redirectTo: '/play'
+        redirectTo: '/dashboard'
     }
 ];
 

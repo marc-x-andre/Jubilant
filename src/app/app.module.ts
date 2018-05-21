@@ -12,13 +12,12 @@ import { AppRoutingModule } from './app.routing';
 import { AppStore } from './app.store';
 import { ChatComponent } from './chat/chat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PlayComponent } from './play/play.component';
 import { AuthGuard } from './service/auth.service';
 import { PlayService } from './service/play.service';
-import { UserService } from './service/user.service';
 import { SocketService } from './service/socket.service';
+import { UserService } from './service/user.service';
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
 
@@ -28,8 +27,7 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     NavbarComponent,
     DashboardComponent,
     PlayComponent,
-    ChatComponent,
-    LoginComponent
+    ChatComponent
   ],
   imports: [
     BrowserModule,
