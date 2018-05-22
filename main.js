@@ -10,7 +10,8 @@ function createWindow() {
         backgroundColor: '#f6f6f6',
         icon: `${__dirname}/dist/favicon.ico`,
         minHeight: 800,
-        minWidth: 1200
+        minWidth: 1200,
+        webPreferences: { webSecurity: false }
     })
 
     console.log(`file://${__dirname}/dist/favicon.ico`);
