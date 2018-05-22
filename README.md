@@ -1,8 +1,8 @@
 # Jubilant 🐎
 
-A "Tap Touche"-like game using the best framework on the internet.
+A "Tap Touche"-like game using the best frameworks on the internet.
 
-5 framework, 3 day, 1 app.
+5 frameworks, 3 day, 1 app.
 
 ## Getting Started 🤗
 
@@ -15,7 +15,6 @@ Install [Node.js](https://nodejs.org/en/) & confirm the installation run `npm -v
 ### Installing
 
 Install node_module in Jubliant folder, run `npm i`.
-
 
 ## Running the tests 🤖
 
@@ -51,7 +50,7 @@ To start your application on desktop in production, run `npm run electron-build`
 
 ## Authors 🧐
  * [Marc-André Daigneault](https://github.com/The224) - Initial work - The224
- * [TwiN](https://github.com/TwinProduction) - ~~Backend authentication - TwinProduction~~ __[deprecate]__
+ * [TwiN](https://github.com/TwinProduction) - ~~Backend authentication - TwinProduction~~ __[deprecated]__
 
 ## License 🔑
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/The224/Jubilant/blob/master/LICENSE) file for details
