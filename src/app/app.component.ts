@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { environment } from '../environments/environment';
 import { AppStore } from './app.store';
 import { UserModel } from './model/user.model';
-import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +16,12 @@ export class AppComponent {
       this.user = user;
       console.log(this.user);
     });
+
+    if (!environment.production) {
+      console.log('BIG BUNDLE 😱');
+    } else {
+      console.log('Small bundle 😎');
+    }
+
   }
 }
