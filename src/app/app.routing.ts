@@ -15,6 +15,10 @@ const appRoutes: Routes = [
         component: PlayComponent,
     },
     {
+        path: 'documentation',
+        loadChildren: './doc/doc.module#DocModule'
+    },
+    {
         path: '**',
         redirectTo: '/dashboard'
     }

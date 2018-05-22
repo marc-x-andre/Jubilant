@@ -120,8 +120,10 @@ io.on('connection', (socket) => {
         players.sort((a, b) => {
             if (a.progress < b.progress) {
                 return 1;
+            } else if (a.progress > b.progress) {
+                return -1;
             }
-            return -1;
+            return 0;
         });
 
         for (let i = 0; i < players.length; i++) {
