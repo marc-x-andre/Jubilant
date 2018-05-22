@@ -14,8 +14,10 @@ let users = [
     { username: 'Doggo 🐶', free: true, progress: 0, position: 0 },
     { username: 'Mimi 🐭', free: true, progress: 0, position: 0 },
     { username: 'Tyro 🦖', free: true, progress: 0, position: 0 },
+    { username: 'Presto 🐢', free: true, progress: 0, position: 0 },
     { username: 'Bloup 🐠', free: true, progress: 0, position: 0 },
     { username: 'Ham-burger 🐹', free: true, progress: 0, position: 0 },
+    { username: 'Neko 🐱', free: true, progress: 0, position: 0 },
     { username: 'Boing 🐰', free: true, progress: 0, position: 0 },
     { username: 'Le Jubilant 🐴', free: true, progress: 0, position: 0 },
     { username: 'Lulu 🦄', free: true, progress: 0, position: 0 },
@@ -23,9 +25,7 @@ let users = [
     { username: 'Froggy 🐸', free: true, progress: 0, position: 0 },
     { username: 'Rocco 🐷', free: true, progress: 0, position: 0 },
     { username: 'Happy 💩', free: true, progress: 0, position: 0 },
-    { username: 'Presto 🐢', free: true, progress: 0, position: 0 },
     { username: 'Touch 🐙', free: true, progress: 0, position: 0 },
-    { username: 'Neko 🐱', free: true, progress: 0, position: 0 },
     { username: 'Wally 🐳', free: true, progress: 0, position: 0 },
     { username: 'Batman 🦇', free: true, progress: 0, position: 0 },
     { username: 'Jiji 🐼', free: true, progress: 0, position: 0 }
@@ -116,6 +116,18 @@ io.on('connection', (socket) => {
             }
             return false;
         });
+
+        players.sort((a, b) => {
+            if (a.progress < b.progress) {
+                return 1;
+            }
+            return -1;
+        });
+
+        for (let i = 0; i < players.length; i++) {
+            players[i].position = i + 1;
+        }
+
         io.emit('progress', players);
     }
 });
