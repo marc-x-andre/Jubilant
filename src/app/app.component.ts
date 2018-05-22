@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
 import { AppStore } from './app.store';
 import { UserModel } from './model/user.model';
+import { SocketService } from './service/socket.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { UserModel } from './model/user.model';
 export class AppComponent {
   public user: UserModel;
 
-  constructor() {
+  constructor(private socketService: SocketService) {
     AppStore.user.subscribe(user => {
       this.user = user;
       console.log(this.user);

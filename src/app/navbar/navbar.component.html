@@ -23,17 +23,18 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="timer">
+        <a class="nav-link" *ngIf="timer >= 0">
           <span *ngIf="isGame">New game in </span>
           <span *ngIf="!isGame">Current game end in </span>
           <span>{{timer}}</span>
         </a>
-        <a class="nav-link" *ngIf="!timer">
+        <a class="nav-link" *ngIf="timer < 0">
           <span>Please 💨</span>
         </a>
       </li>
       <form class="form-inline">
-        <button *ngIf="!user" class="btn btn-outline-success" (click)="login()" type="button">Login 🌈</button>
+        <button *ngIf="timer >= 0 && !user" class="btn btn-outline-success" (click)="login()" type="button">Login 🌈</button>
+        <button *ngIf="timer < 0 && !user" disabled class="btn btn-outline-warning" type="button">Login 🌈</button>
         <button *ngIf="user" class="btn btn-outline-danger" (click)="logout()" type="button">Logout 🌧</button>
       </form>
     </ul>
