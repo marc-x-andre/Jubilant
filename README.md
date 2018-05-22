@@ -51,7 +51,7 @@ To start your application on desktop in production, run `npm run electron-build`
 
 ## Authors 🧐
  * [Marc-André Daigneault](https://github.com/The224) - Initial work - The224
- * [TwiN](https://github.com/TwinProduction) - Backend authentication - TwinProduction
+ * [TwiN](https://github.com/TwinProduction) - ~~Backend authentication - TwinProduction~~ __[deprecate]__
 
 ## License 🔑
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/The224/Jubilant/blob/master/LICENSE) file for details
