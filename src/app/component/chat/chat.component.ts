@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AppStore } from '../app.store';
-import { Message } from '../model/message.model';
-import { SocketService } from '../service/socket.service';
-import { UserService } from '../service/user.service';
+import { AppStore } from '../../app.store';
+import { Message } from '../../model/message.model';
+import { SocketService } from '../../service/socket.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-chat',

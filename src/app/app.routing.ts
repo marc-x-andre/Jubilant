@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PlayComponent } from './play/play.component';
 import { AuthGuard } from './service/auth.service';
+
+import {
+    PlayComponent,
+    DashboardComponent,
+} from './component';
 
 const appRoutes: Routes = [
     {

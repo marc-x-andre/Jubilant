@@ -1,9 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/operator/take';
-import { AppStore, GAME_STATE } from '../app.store';
-import { PlayService } from '../service/play.service';
-import { SocketService } from '../service/socket.service';
+import { AppStore, GAME_STATE } from '../../app.store';
+import { PlayService } from '../../service/play.service';
+import { SocketService } from '../../service/socket.service';
 
 @Component({
   selector: 'app-play',

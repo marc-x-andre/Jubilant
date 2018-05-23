@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Message } from './model/message.model';
-import { UserModel } from './model/user.model';
+import { User } from './model/user.model';
 
 export enum GAME_STATE {
     PROGRESS = 'progress',
@@ -24,9 +24,9 @@ export class AppStore {
     public static isGame: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public static timerGame: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
 
-    public static usersProgress: BehaviorSubject<UserModel[]> = new BehaviorSubject<UserModel[]>([]);
+    public static usersProgress: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
-    public static user: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(undefined);
+    public static user: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
 
     public static chatMessage: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 

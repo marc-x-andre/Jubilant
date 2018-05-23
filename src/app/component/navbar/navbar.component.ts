@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
-import { AppStore } from '../app.store';
-import { UserModel } from '../model/user.model';
-import { UserService } from '../service/user.service';
+import { AppStore } from '../../app.store';
+import { User } from '../../model/user.model';
+import { UserService } from '../../service/user.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
-  @Input() public user: UserModel;
+  @Input() public user: User;
   public isGame;
   public timer;
 

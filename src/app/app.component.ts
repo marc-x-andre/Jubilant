@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
 import { AppStore } from './app.store';
-import { UserModel } from './model/user.model';
+import { User } from './model/user.model';
 import { SocketService } from './service/socket.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { SocketService } from './service/socket.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public user: UserModel;
+  public user: User;
 
   constructor(private socketService: SocketService) {
     AppStore.user.subscribe(user => {

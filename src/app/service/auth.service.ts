@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AppStore } from '../app.store';
-import { UserModel } from '../model/user.model';
+import { User } from '../model/user.model';
 import { UserService } from './user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    private user: UserModel;
+    private user: User;
 
     constructor(private router: Router, private userService: UserService, private toastr: ToastrService) {
         AppStore.user.subscribe(user => {

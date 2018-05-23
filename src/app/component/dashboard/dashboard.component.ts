@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppStore } from '../app.store';
-import { UserModel } from '../model/user.model';
+import { AppStore } from '../../app.store';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { UserModel } from '../model/user.model';
 })
 export class DashboardComponent implements OnInit {
 
-  public players: UserModel[] = [];
+  public players: User[] = [];
 
   ngOnInit() {
     AppStore.usersProgress.subscribe(usersProgress => {

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { ToastrService } from 'ngx-toastr';
 import { AppStore } from '../app.store';
-import { UserModel } from '../model/user.model';
+import { User } from '../model/user.model';
 
 @Injectable()
 export class SocketService {
-    private user: UserModel;
+    private user: User;
 
     constructor(private socket: Socket, private toastr: ToastrService) {
         // For user auth in message
@@ -45,7 +45,7 @@ export class SocketService {
         });
 
         // New players
-        this.socket.fromEvent<any>('new_player').subscribe((player: UserModel) => {
+        this.socket.fromEvent<any>('new_player').subscribe((player: User) => {
             setTimeout(() => {
                 if (!this.user || this.user.username !== player.username) {
                     this.toastr.info(`${player.username}`, 'New challenger approaching.');
