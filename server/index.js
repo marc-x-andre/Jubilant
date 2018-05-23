@@ -10,6 +10,7 @@ const io = require('socket.io')(http);
 const loremIpsum = require('lorem-ipsum');
 
 const ink = '';
+const ink2 = '';
 
 let users = [
     { username: 'Doggo 🐶', free: true, progress: 0, position: 0 },
@@ -65,7 +66,7 @@ io.on('connection', (socket) => {
 
     app.get('/omg', (req, res) => {
         io.emit('omg', ink);
-        res.send('<h1 style="font-size:200px;">May the force be with you... !!!!!!!!!!!!<h1>');
+        res.send(ink2);
     });
 
     // Chat Message
