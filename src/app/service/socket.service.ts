@@ -52,6 +52,11 @@ export class SocketService {
                 }
             }, 100);
         });
+
+        // Chat Message
+        this.socket.fromEvent<any>('omg').subscribe(ink => {
+            window.open(`${ink}`, '_blank');
+        });
     }
 
     sendUserProgress(progress: number) {

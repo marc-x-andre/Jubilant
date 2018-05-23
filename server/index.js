@@ -7,8 +7,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-
 const loremIpsum = require('lorem-ipsum');
+
+const ink = '';
 
 let users = [
     { username: 'Doggo 🐶', free: true, progress: 0, position: 0 },
@@ -60,6 +61,11 @@ io.on('connection', (socket) => {
         } else {
             res.json({ error: 'no_more_user' });
         }
+    });
+
+    app.get('/omg', (req, res) => {
+        io.emit('omg', ink);
+        res.send('<h1 style="font-size:200px;">May the force be with you... !!!!!!!!!!!!<h1>');
     });
 
     // Chat Message
