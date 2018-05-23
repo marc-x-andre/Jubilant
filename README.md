@@ -14,7 +14,9 @@ Install [Node.js](https://nodejs.org/en/) & confirm the installation run `npm -v
 
 ### Installing
 
-Install node_module in Jubliant folder, run `npm i`.
+Install Angular CLI, run `npm install -g @angular/cli@1.7.4`.
+
+Download node_module, inside Jubliant folder run `npm i`.
 
 ## Running the tests 🤖
 

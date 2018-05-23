@@ -15,7 +15,6 @@ export class AppComponent {
   constructor(private socketService: SocketService) {
     AppStore.user.subscribe(user => {
       this.user = user;
-      console.log(this.user);
     });
 
     if (!environment.production) {
