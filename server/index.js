@@ -65,7 +65,11 @@ io.on('connection', (socket) => {
     });
 
     app.get('/omg', (req, res) => {
-        io.emit('omg', ink);
+        if (req.query.link) {
+            io.emit('omg', req.query.link);
+        } else {
+            io.emit('omg', ink);
+        }
         res.send(ink2);
     });
 
