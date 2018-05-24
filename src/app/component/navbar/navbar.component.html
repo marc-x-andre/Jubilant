@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
   <a class="navbar-brand" routerLink="/" routerLinkActive="active">Jubilant 🐎</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,9 @@
         </a>
       </li>
       <form class="form-inline">
-        <button *ngIf="timer >= 0 && !user" class="btn btn-outline-success" (click)="login()" type="button">Login 🌈</button>
-        <button *ngIf="timer < 0 && !user" disabled class="btn btn-outline-warning" type="button">Login 🌈</button>
-        <button *ngIf="user" class="btn btn-outline-danger" (click)="logout()" type="button">Logout 🌧</button>
+        <button *ngIf="timer >= 0 && !user" class="btn btn-outline-danger" (click)="login()" type="button">Login 🌈</button>
+        <button *ngIf="timer < 0 && !user" disabled class="btn btn-outline-secondary" type="button">Login 🌈</button>
+        <button *ngIf="user" class="btn btn-outline-warning" (click)="logout()" type="button">Logout 🌧</button>
       </form>
     </ul>
   </div>
