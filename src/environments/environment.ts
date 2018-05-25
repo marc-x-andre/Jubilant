@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  socket: 'http://--------------:4201',
+  socket: 'http://localhost:4201',
 };
