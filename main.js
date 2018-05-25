@@ -12,7 +12,7 @@ function createWindow() {
         minHeight: 800,
         minWidth: 1200,
         webPreferences: { webSecurity: false }
-    })
+})
 
     console.log(`file://${__dirname}/dist/favicon.ico`);
 
