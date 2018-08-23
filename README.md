@@ -4,6 +4,14 @@ A "Tap Touche"-like game using the best frameworks on the internet.
 
 5 frameworks, 3 day, 1 app.
 
+## Notice 🙀
+
+I use this project for presentation and transfer of knowledge. 
+
+It's not meant to be a "real game", but it work and you can play with it :D
+
+Also, I use it to introduce people to the Github environement. 
+
 ## Getting Started 🤗
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
