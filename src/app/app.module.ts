@@ -21,6 +21,8 @@ import {
   DashboardComponent,
   ChatComponent
 } from './component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
 
@@ -41,7 +43,8 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     SocketIoModule.forRoot(config),
     ToastrModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [],
   providers: [
