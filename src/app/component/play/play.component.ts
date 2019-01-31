@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/operator/take';
+import { switchMap } from 'rxjs/operators';
 import { AppStore, GAME_STATE } from '../../app.store';
 import { PlayService } from '../../service/play.service';
 import { SocketService } from '../../service/socket.service';
@@ -40,10 +41,10 @@ export class PlayComponent implements OnInit {
       }
     });
 
-    AppStore.timerGame.switchMap(time => {
+    AppStore.timerGame.pipe(switchMap(time => {
       this.timer = time;
       return AppStore.isGame;
-    }).subscribe(isGame => {
+    })).subscribe(isGame => {
       this.isGame = isGame;
       if (isGame) {
         this.textarea.nativeElement.disabled = true;

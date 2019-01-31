@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 import { AppStore } from '../../app.store';
 import { User } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -19,10 +20,10 @@ export class NavbarComponent implements OnInit {
   constructor(private userService: UserService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    AppStore.timerGame.switchMap(time => {
+    AppStore.timerGame.pipe(switchMap(time => {
       this.timer = time;
       return AppStore.isGame;
-    }).subscribe(isGame => this.isGame = isGame);
+    })).subscribe(isGame => this.isGame = isGame);
   }
 
   login() {
