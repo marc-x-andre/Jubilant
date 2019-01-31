@@ -13,6 +13,6 @@ COPY ./ ./
 
 ### STAGE 2: Serve ###
 
-EXPOSE 4201
+EXPOSE 3000
 
 CMD [ "npm", "start" ]

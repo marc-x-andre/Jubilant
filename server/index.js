@@ -2,7 +2,7 @@
 
 const COOLDOWN = 30;
 const GAME_LENGHT = 180;
-const PORT = 4201;
+const PORT = 3000;
 
 const express = require('express');
 const app = express();
