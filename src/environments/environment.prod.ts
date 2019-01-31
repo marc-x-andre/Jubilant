@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  socket: 'http://localhost:4201',
+  socket: 'jubilantserver.the224.info',
 };

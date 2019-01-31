@@ -2,7 +2,8 @@
 
 const COOLDOWN = 30;
 const GAME_LENGHT = 180;
-const PORT = 3000;
+const PORT = 80;
+const HOST = '0.0.0.0';
 
 const express = require('express');
 const app = express();
@@ -153,6 +154,7 @@ function resetProgress() {
   });
 }
 
-http.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+http.listen(PORT, HOST);
+
+console.log(`Server started on http://${HOST}:${PORT}`);
+
