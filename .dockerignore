@@ -6,6 +6,7 @@ docker-compose*
 .git
 .gitignore
 README.md
-LICENSE
 .vscode
-server
+server/node_modules
+server/static
+dist

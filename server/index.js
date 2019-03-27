@@ -14,31 +14,129 @@ const loremIpsum = require('lorem-ipsum');
 const ink = 'https://youtu.be/M9iYT3lhmd4';
 const ink2 = '<h1 style="font-size:400px;">May the force be with you !</h1>';
 
-let users = [
-  { username: 'Doggo 🐶', free: true, progress: 0, position: 0 },
-  { username: 'Mimi 🐭', free: true, progress: 0, position: 0 },
-  { username: 'Tyro 🦖', free: true, progress: 0, position: 0 },
-  { username: 'Presto 🐢', free: true, progress: 0, position: 0 },
-  { username: 'Bloup 🐠', free: true, progress: 0, position: 0 },
-  { username: 'Ham-burger 🐹', free: true, progress: 0, position: 0 },
-  { username: 'Neko 🐱', free: true, progress: 0, position: 0 },
-  { username: 'Boing 🐰', free: true, progress: 0, position: 0 },
-  { username: 'Le Jubilant 🐴', free: true, progress: 0, position: 0 },
-  { username: 'Lulu 🦄', free: true, progress: 0, position: 0 },
-  { username: 'Komodo 🐲', free: true, progress: 0, position: 0 },
-  { username: 'Froggy 🐸', free: true, progress: 0, position: 0 },
-  { username: 'Rocco 🐷', free: true, progress: 0, position: 0 },
-  { username: 'Happy 💩', free: true, progress: 0, position: 0 },
-  { username: 'Touch 🐙', free: true, progress: 0, position: 0 },
-  { username: 'Wally 🐳', free: true, progress: 0, position: 0 },
-  { username: 'Batman 🦇', free: true, progress: 0, position: 0 },
-  { username: 'Jiji 🐼', free: true, progress: 0, position: 0 }
+let users = [{
+    username: 'Doggo 🐶',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Mimi 🐭',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Tyro 🦖',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Presto 🐢',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Bloup 🐠',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Ham-burger 🐹',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Neko 🐱',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Boing 🐰',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Le Jubilant 🐴',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Lulu 🦄',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Komodo 🐲',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Froggy 🐸',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Rocco 🐷',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Happy 💩',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Touch 🐙',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Wally 🐳',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Batman 🦇',
+    free: true,
+    progress: 0,
+    position: 0
+  },
+  {
+    username: 'Jiji 🐼',
+    free: true,
+    progress: 0,
+    position: 0
+  }
 ];
 
 let game_time = 0;
 let is_game = 0;
 let intervalId;
-let game_text = loremIpsum({ count: 1, units: 'paragraphs', paragraphUpperBound: 4, format: 'plain', random: Math.random, suffix: 'EOL' });
+let game_text = loremIpsum({
+  count: 1,
+  units: 'paragraphs',
+  paragraphUpperBound: 4,
+  format: 'plain',
+  random: Math.random,
+  suffix: 'EOL'
+});
+
+app.use(express.static('static'))
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -46,7 +144,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('WebSocket Server!');
 });
 
@@ -59,10 +157,14 @@ io.on('connection', (socket) => {
     const user = users.find(user => user.free === true);
     if (user) {
       user.free = false;
-      res.json({ data: user });
+      res.json({
+        data: user
+      });
       io.emit('new_player', user);
     } else {
-      res.json({ error: 'no_more_user' });
+      res.json({
+        error: 'no_more_user'
+      });
     }
   });
 
@@ -109,13 +211,24 @@ io.on('connection', (socket) => {
           is_game = false;
           resetProgress();
           emitProgress();
-          game_text = loremIpsum({ count: 1, units: 'paragraphs', paragraphUpperBound: 4, format: 'plain', random: Math.random, suffix: 'EOL' });
+          game_text = loremIpsum({
+            count: 1,
+            units: 'paragraphs',
+            paragraphUpperBound: 4,
+            format: 'plain',
+            random: Math.random,
+            suffix: 'EOL'
+          });
         } else {
           game_time = COOLDOWN;
           is_game = true;
         }
       }
-      io.emit('time', { game_time: game_time, is_game: is_game, game_text: game_text });
+      io.emit('time', {
+        game_time: game_time,
+        is_game: is_game,
+        game_text: game_text
+      });
     }, 1000);
   }
 
@@ -157,4 +270,3 @@ function resetProgress() {
 http.listen(PORT, HOST);
 
 console.log(`Server started on http://${HOST}:${PORT}`);
-
